@@ -112,13 +112,14 @@ module ldpc_decoder_core #(
     // Decoder FSM
     // =========================================================================
 
-    typedef enum logic [2:0] {
+    typedef enum logic [3:0] {
         IDLE,
         INIT,           // Initialize beliefs from channel LLRs, zero messages
         LAYER_READ,     // Read Z beliefs for each of DC columns in current row
         CN_UPDATE,      // Run min-sum CN update on gathered messages
         LAYER_WRITE,    // Write updated beliefs and new CN->VN messages
         SYNDROME,       // Check syndrome after full iteration
+        SYNDROME_DONE,  // Read registered syndrome result
         DONE
     } state_t;
 
@@ -167,7 +168,8 @@ module ldpc_decoder_core #(
                         state_next = LAYER_READ;  // next row
                 end
             end
-            SYNDROME: begin
+            SYNDROME:    state_next = SYNDROME_DONE;
+            SYNDROME_DONE: begin
                 if (syndrome_ok && early_term_en)
                     state_next = DONE;
                 else if (iter_cnt >= effective_max_iter)
@@ -192,6 +194,7 @@ module ldpc_decoder_core #(
             converged  <= 1'b0;
             iter_used  <= '0;
             syndrome_weight <= '0;
+            syndrome_ok <= 1'b0;
         end else begin
             case (state)
                 IDLE: begin
@@ -199,6 +202,7 @@ module ldpc_decoder_core #(
                     row_idx   <= '0;
                     col_idx   <= '0;
                     converged <= 1'b0;
+                    syndrome_ok <= 1'b0;
                 end
 
                 INIT: begin
@@ -221,18 +225,25 @@ module ldpc_decoder_core #(
                     // VN->CN = belief - old CN->VN message
                     // (belief already contains the sum of ALL CN->VN messages,
                     //  so subtracting the current row's message gives the extrinsic)
-                    for (int z = 0; z < Z; z++) begin
-                        int bit_idx;
-                        int shifted_z;
-                        logic signed [Q-1:0] old_msg;
-                        logic signed [Q-1:0] belief_val;
+                    // Skip unconnected columns (H_BASE == -1)
+                    if (H_BASE[row_idx][col_idx] >= 0) begin
+                        for (int z = 0; z < Z; z++) begin
+                            int bit_idx;
+                            int shifted_z;
+                            logic signed [Q-1:0] old_msg;
+                            logic signed [Q-1:0] belief_val;
 
-                        shifted_z = (z + H_BASE[row_idx][col_idx]) % Z;
-                        bit_idx   = int'(col_idx) * Z + shifted_z;
-                        old_msg   = msg_cn2vn[row_idx][col_idx][z];
-                        belief_val = beliefs[bit_idx];
+                            shifted_z = (z + H_BASE[row_idx][col_idx]) % Z;
+                            bit_idx   = int'(col_idx) * Z + shifted_z;
+                            old_msg   = msg_cn2vn[row_idx][col_idx][z];
+                            belief_val = beliefs[bit_idx];
 
-                        vn_to_cn[col_idx][z] <= sat_sub(belief_val, old_msg);
+                            vn_to_cn[col_idx][z] <= sat_sub(belief_val, old_msg);
+                        end
+                    end else begin
+                        // Unconnected: set to +MAX so magnitude doesn't affect min-sum
+                        for (int z = 0; z < Z; z++)
+                            vn_to_cn[col_idx][z] <= {1'b0, {(Q-1){1'b1}}};  // +31
                     end
 
                     if (col_idx == N_BASE - 1)
@@ -261,22 +272,25 @@ module ldpc_decoder_core #(
 
                 LAYER_WRITE: begin
                     // Write back: update beliefs and store new CN->VN messages
-                    for (int z = 0; z < Z; z++) begin
-                        int bit_idx;
-                        int shifted_z;
-                        logic signed [Q-1:0] new_msg;
-                        logic signed [Q-1:0] old_extrinsic;
+                    // Skip unconnected columns (H_BASE == -1)
+                    if (H_BASE[row_idx][col_idx] >= 0) begin
+                        for (int z = 0; z < Z; z++) begin
+                            int bit_idx;
+                            int shifted_z;
+                            logic signed [Q-1:0] new_msg;
+                            logic signed [Q-1:0] old_extrinsic;
 
-                        shifted_z = (z + H_BASE[row_idx][col_idx]) % Z;
-                        bit_idx   = int'(col_idx) * Z + shifted_z;
-                        new_msg   = cn_to_vn[col_idx][z];
-                        old_extrinsic = vn_to_cn[col_idx][z];
+                            shifted_z = (z + H_BASE[row_idx][col_idx]) % Z;
+                            bit_idx   = int'(col_idx) * Z + shifted_z;
+                            new_msg   = cn_to_vn[col_idx][z];
+                            old_extrinsic = vn_to_cn[col_idx][z];
 
-                        // belief = extrinsic (VN->CN) + new CN->VN message
-                        beliefs[bit_idx] <= sat_add(old_extrinsic, new_msg);
+                            // belief = extrinsic (VN->CN) + new CN->VN message
+                            beliefs[bit_idx] <= sat_add(old_extrinsic, new_msg);
 
-                        // Store new message for next iteration
-                        msg_cn2vn[row_idx][col_idx][z] <= new_msg;
+                            // Store new message for next iteration
+                            msg_cn2vn[row_idx][col_idx][z] <= new_msg;
+                        end
                     end
 
                     if (col_idx == N_BASE - 1) begin
@@ -292,25 +306,32 @@ module ldpc_decoder_core #(
 
                 SYNDROME: begin
                     // Check H * c_hat == 0 (compute syndrome weight)
+                    // Only include connected columns (H_BASE >= 0)
                     syndrome_cnt = '0;
                     for (int r = 0; r < M_BASE; r++) begin
                         for (int z = 0; z < Z; z++) begin
                             logic parity;
                             parity = 1'b0;
                             for (int c = 0; c < N_BASE; c++) begin
-                                int shifted_z, bit_idx;
-                                shifted_z = (z + H_BASE[r][c]) % Z;
-                                bit_idx = c * Z + shifted_z;
-                                parity = parity ^ beliefs[bit_idx][Q-1]; // sign bit = hard decision
+                                if (H_BASE[r][c] >= 0) begin
+                                    int shifted_z, bit_idx;
+                                    shifted_z = (z + H_BASE[r][c]) % Z;
+                                    bit_idx = c * Z + shifted_z;
+                                    parity = parity ^ beliefs[bit_idx][Q-1];
+                                end
                             end
                             if (parity) syndrome_cnt = syndrome_cnt + 1;
                         end
                     end
                     syndrome_weight <= syndrome_cnt;
-                    syndrome_ok = (syndrome_cnt == 0);
+                    syndrome_ok <= (syndrome_cnt == 0);
 
                     iter_cnt <= iter_cnt + 1;
                     iter_used <= iter_cnt + 1;
+                end
+
+                SYNDROME_DONE: begin
+                    // Check registered syndrome result
                     if (syndrome_ok) converged <= 1'b1;
                 end
 
