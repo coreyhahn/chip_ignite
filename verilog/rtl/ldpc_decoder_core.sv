@@ -264,13 +264,12 @@ module ldpc_decoder_core #(
                     // Min-sum update for all Z check nodes in current row
                     // Each CN has DC=8 incoming messages (one per column)
                     for (int z = 0; z < Z; z++) begin
-                        // Gather DC messages for check node z
-                        logic signed [Q-1:0] msgs [DC];
-                        for (int d = 0; d < DC; d++)
-                            msgs[d] = vn_to_cn[d][z];
-
-                        // Min-sum: find min1, min2, sign product, min1 index
-                        cn_min_sum(msgs, cn_to_vn[0][z], cn_to_vn[1][z],
+                        // Min-sum: pass individual VN->CN messages directly
+                        cn_min_sum(vn_to_cn[0][z], vn_to_cn[1][z],
+                                   vn_to_cn[2][z], vn_to_cn[3][z],
+                                   vn_to_cn[4][z], vn_to_cn[5][z],
+                                   vn_to_cn[6][z], vn_to_cn[7][z],
+                                   cn_to_vn[0][z], cn_to_vn[1][z],
                                    cn_to_vn[2][z], cn_to_vn[3][z],
                                    cn_to_vn[4][z], cn_to_vn[5][z],
                                    cn_to_vn[6][z], cn_to_vn[7][z]);
@@ -356,13 +355,15 @@ module ldpc_decoder_core #(
     // Min-sum CN update function
     // =========================================================================
 
-    // Offset min-sum for DC=8 inputs
+    // Offset min-sum for DC=8 inputs (individual ports for iverilog compatibility)
     // For each output j: sign = XOR of all other signs, magnitude = min of all other magnitudes - offset
     task automatic cn_min_sum(
-        input  logic signed [Q-1:0] in [DC],
+        input  logic signed [Q-1:0] in0, in1, in2, in3,
+                                     in4, in5, in6, in7,
         output logic signed [Q-1:0] out0, out1, out2, out3,
                                      out4, out5, out6, out7
     );
+        logic signed [Q-1:0] ins [DC];
         logic [DC-1:0] signs;
         logic [Q-2:0]  mags [DC];
         logic          sign_xor;
@@ -370,19 +371,22 @@ module ldpc_decoder_core #(
         int            min1_idx;
         logic signed [Q-1:0] outs [DC];
 
+        ins[0] = in0; ins[1] = in1; ins[2] = in2; ins[3] = in3;
+        ins[4] = in4; ins[5] = in5; ins[6] = in6; ins[7] = in7;
+
         // Extract signs and magnitudes
         // Note: -32 (100000) has magnitude 32 which overflows 5-bit field to 0.
         // Clamp to 31 (max representable magnitude) to avoid corruption.
         sign_xor = 1'b0;
         for (int i = 0; i < DC; i++) begin
-            logic [Q-1:0] abs_val;  // wider to detect overflow
-            signs[i] = in[i][Q-1];
-            if (in[i][Q-1]) begin
-                abs_val = ~in[i] + 1'b1;
+            logic [Q-1:0] abs_val;
+            signs[i] = ins[i][Q-1];
+            if (ins[i][Q-1]) begin
+                abs_val = ~ins[i] + 1'b1;
                 // If abs_val overflowed (input was most negative), clamp
                 mags[i] = (abs_val[Q-1]) ? {(Q-1){1'b1}} : abs_val[Q-2:0];
             end else begin
-                mags[i] = in[i][Q-2:0];
+                mags[i] = ins[i][Q-2:0];
             end
             sign_xor = sign_xor ^ signs[i];
         end
