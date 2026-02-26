@@ -1,231 +1,192 @@
-<div align="center">
-
-<img src="https://umsousercontent.com/lib_lnlnuhLgkYnZdkSC/hj0vk05j0kemus1i.png" alt="ChipFoundry Logo" height="140" />
-
-[![Typing SVG](https://readme-typing-svg.demolab.com?font=Inter&size=44&duration=3000&pause=600&color=4C6EF5&center=true&vCenter=true&width=1100&lines=Caravel+User+Project+Template;OpenLane+%2B+ChipFoundry+Flow;Verification+and+Shuttle-Ready)](https://git.io/typing-svg)
+# LDPC Decoder for Photon-Starved Optical Communication
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
-[![ChipFoundry Marketplace](https://img.shields.io/badge/ChipFoundry-Marketplace-6E40C9.svg)](https://platform.chipfoundry.io/marketplace)
-
-</div>
-
-## Table of Contents
-- [Overview](#overview)
-- [Documentation & Resources](#documentation--resources)
-- [Prerequisites](#prerequisites)
-- [Project Structure](#project-structure)
-- [Starting Your Project](#starting-your-project)
-- [Development Flow](#development-flow)
-- [GPIO Configuration](#gpio-configuration)
-- [Local Precheck](#local-precheck)
-- [Checklist for Shuttle Submission](#checklist-for-shuttle-submission)
 
 ## Overview
-This repository contains a user project designed for integration into the **Caravel chip user space**. Use it as a template for integrating custom RTL with Caravel's system-on-chip (SoC) utilities, including:
 
-* **IO Pads:** Configurable general-purpose input/output.
-* **Logic Analyzer Probes:** 128 signals for non-intrusive hardware debugging.
-* **Wishbone Port:** A 32-bit standard bus interface for communication between the RISC-V management core and your custom hardware.
+A soft-input LDPC decoder ASIC targeting the ChipFoundry chipIgnite shuttle (SkyWater 130nm, Caravel harness). The design targets photon-starved free-space optical communication links such as deep-space optical downlinks, underwater optical modems, and quantum key distribution post-processing. By accepting soft log-likelihood ratio (LLR) inputs rather than hard bit decisions, the decoder preserves 2-3 dB of coding gain that would otherwise be lost at extremely low photon counts. The entire decoder fits in approximately 1.5 mm^2 of the Caravel user area with no multipliers -- only adders, comparators, and shift registers.
 
----
+## Application
 
-## Documentation & Resources
-For detailed hardware specifications and register maps, refer to the following official documents:
+The target channel is a photon-counting optical link using Geiger-mode avalanche photodiode (GMAPD) detectors, such as the BAE Systems single-photon detector array. At photon-starved signal levels (0.5-5 photons per slot), the receiver produces soft detection statistics governed by Poisson counting noise. Channel LLRs are computed from these statistics by the Caravel PicoRV32 management core and written to the decoder via Wishbone. The rate-1/8 LDPC code provides extreme redundancy (32 information bits encoded into 256 coded bits), enabling reliable communication well below 1 photon per bit -- approaching the theoretical limits of optical communication.
 
-* **[Caravel Datasheet](https://github.com/chipfoundry/caravel/blob/main/docs/caravel_datasheet_2.pdf)**: Detailed electrical and physical specifications of the Caravel harness.
-* **[Caravel Technical Reference Manual (TRM)](https://github.com/chipfoundry/caravel/blob/main/docs/caravel_datasheet_2_register_TRM_r2.pdf)**: Complete register maps and programming guides for the management SoC.
-* **[ChipFoundry Marketplace](https://platform.chipfoundry.io/marketplace)**: Access additional IP blocks, EDA tools, and shuttle services.
+## Architecture
 
----
-
-## Prerequisites
-Ensure your environment meets the following requirements:
-
-1. **Docker** [Linux](https://docs.docker.com/desktop/setup/install/linux/ubuntu/) | [Windows](https://docs.docker.com/desktop/setup/install/windows-install/) | [Mac](https://docs.docker.com/desktop/setup/install/mac-install/)
-2. **Python 3.8+** with `pip`.
-3. **Git**: For repository management.
-
----
-
-## Project Structure
-A successful Caravel project requires a specific directory layout for the automated tools to function:
-
-| Directory | Description |
-| :--- | :--- |
-| `openlane/` | Configuration files for hardening macros and the wrapper. |
-| `verilog/rtl/` | Source Verilog code for the project. |
-| `verilog/gl/` | Gate-level netlists (generated after hardening). |
-| `verilog/dv/` | Design Verification (cocotb and Verilog testbenches). |
-| `gds/` | Final GDSII binary files for fabrication. |
-| `lef/` | Library Exchange Format files for the macros. |
-
----
-
-## Starting Your Project
-
-### 1. Repository Setup
-Create a new repository based on the `caravel_user_project` template and clone it to your local machine:
-
-```bash
-git clone <your-github-repo-URL>
-pip install chipfoundry-cli
-cd <project_name>
+```
+Caravel SoC (Sky130, chipIgnite)
++=================================================+
+|  PicoRV32 (Management Core)                     |
+|      |                                          |
+|      | Wishbone B4 bus                          |
+|      v                                          |
+|  ldpc_decoder_top (~1.5 mm^2)                   |
+|    +-- wishbone_interface (register map)         |
+|    +-- ldpc_decoder_core (layered min-sum)       |
+|    |     +-- llr_ram (256 x 6-bit)               |
+|    |     +-- msg_ram (edges x 6-bit)             |
+|    |     +-- vn_update_array [Z=32]              |
+|    |     +-- cn_update_array [Z=32]              |
+|    |     +-- barrel_shifter_z32                  |
+|    |     +-- iteration_controller                |
+|    |     +-- syndrome_checker                    |
+|    +-- hard_decision_out (32 decoded bits)        |
+|                                                  |
+|  Data flow: LLRs in -> layered decode -> 32 bits |
++=================================================+
 ```
 
-### 2. Project Initialization
+The decoder uses layered (row-serial) scheduling of the offset min-sum algorithm. Each layer processes one row of the 7x8 QC-LDPC base matrix, updating variable-node beliefs immediately rather than waiting for a full flooding iteration. This roughly halves the iteration count needed for convergence. A barrel shifter handles the quasi-cyclic shift operations at the Z=32 lifting factor.
 
-> [!IMPORTANT]
-> Run this first! Initialize your project configuration:
+The design uses a single clock domain (`wb_clk_i` from Caravel) and contains no multipliers or lookup tables -- all arithmetic is add/compare/select. This makes it well suited for area-constrained ASIC implementation on Sky130.
+
+## Code Parameters
+
+| Parameter | Value |
+|-----------|-------|
+| Code type | QC-LDPC (quasi-cyclic) |
+| Rate | 1/8 (k=32, n=256) |
+| Base matrix | 7x8 IRA staircase |
+| Lifting factor Z | 32 |
+| Quantization | 6-bit signed LLR |
+| Algorithm | Offset min-sum (beta ~ 0.5) |
+| Scheduling | Layered (row-serial) |
+| Max iterations | 30 (with early termination) |
+| Convergence | ~2x faster than flooding schedule |
+
+## Performance
+
+| Metric | Value |
+|--------|-------|
+| Target clock | 50-75 MHz (Sky130) |
+| Cycles per codeword | ~630 (30 iterations x 21 cycles/iter) |
+| Codeword latency | 8.4-12.6 us |
+| Decoded throughput | ~2.5-3.8 Mbps |
+| Estimated area | ~1.5 mm^2 (of 10.3 mm^2 user area) |
+| Power | TBD (post-synthesis) |
+| Coding gain vs hard | +2-3 dB at BER 10^-5 |
+
+## Register Map
+
+All registers are accessed via Wishbone B4 at word-aligned addresses relative to the decoder base address.
+
+| Offset | Name | R/W | Description |
+|--------|------|-----|-------------|
+| 0x00 | CTRL | R/W | [0]=start, [1]=early_term_en, [12:8]=max_iter |
+| 0x04 | STATUS | R | [0]=busy, [1]=converged, [12:8]=iter_used, [23:16]=syndrome_wt |
+| 0x10-0xDC | LLR_IN | W | 52 words: 5 LLRs packed per 32-bit word (6 bits each) |
+| 0x50 | DECODED | R | 32 decoded information bits |
+| 0x54 | VERSION | R | 0x1D010001 (LDPC v1.0, rev 1) |
+
+**Typical usage from PicoRV32 firmware:**
+1. Write 256 quantized LLRs to LLR_IN (52 Wishbone writes)
+2. Write CTRL to start decode (max_iter=30, early_term=1)
+3. Poll STATUS until busy=0
+4. Read DECODED bits and syndrome weight
+
+## Verification Status
+
+| Layer | Status | Details |
+|-------|--------|---------|
+| Standalone Verilator | PASS (2/2) | VERSION register read, clean codeword decode |
+| Vector-driven Verilator | PASS (20/20) | Bit-exact match vs Python behavioral model |
+| cocotb Caravel integration | In progress | Wishbone access, functional decode tests |
+| Gate-level simulation | Pending | Post-synthesis netlist, requires OpenLane hardening |
+| Static timing analysis | Pending | Target: 50 MHz (20 ns), stretch goal 75 MHz |
+
+The Python behavioral model (`model/ldpc_sim.py`) generates test vectors at multiple SNR points covering the Poisson channel at lambda_s = 0.5, 1.0, 2.0, and 5.0 photons per slot. All 20 vector-driven tests produce bit-exact agreement between RTL and the Python reference.
+
+## Directory Structure
+
+```
+chip_ignite/
+  verilog/
+    rtl/                  RTL sources (decoder + Caravel wrapper)
+      ldpc_decoder_top.sv     Top-level with Wishbone interface
+      ldpc_decoder_core.sv    Layered min-sum decode engine
+      wishbone_interface.sv   Register map and bus logic
+      user_project_wrapper.v  Caravel integration wrapper
+    dv/
+      cocotb/ldpc_tests/  cocotb testbenches for Caravel sim
+    gl/                   Gate-level netlists (post-hardening)
+    includes/             File lists for simulation
+  openlane/
+    ldpc_decoder_top/     OpenLane config, SDC, pin ordering
+    user_project_wrapper/ Wrapper hardening config
+  firmware/
+    ldpc_demo/            PicoRV32 bare-metal demo firmware
+  docs/                   Sphinx documentation, AI disclosure
+  gds/                    GDSII output (post-hardening)
+  lef/                    LEF macro definitions
+  sdc/                    Timing constraints
+```
+
+The parent directory (`ldpc_optical/`) contains additional resources:
+- `rtl/` -- standalone RTL (pre-integration)
+- `tb/` -- Verilator testbenches with vector-driven tests
+- `model/` -- Python behavioral model and test vector generation
+- `data/` -- H-matrix definitions and simulation results
+- `docs/` -- Design documentation and project report
+
+## Building and Running
+
+### Standalone RTL verification (Verilator)
 
 ```bash
+# Basic functional tests (VERSION read + clean decode)
+cd ../tb && make sim
+
+# 20-vector cross-check against Python behavioral model
+cd ../tb && make sim_vectors
+```
+
+### Caravel flow (requires ChipFoundry CLI)
+
+```bash
+# One-time setup
 cf init
-```
-
-This creates `.cf/project.json` with project metadata. **This must be run before any other commands** (`cf setup`, `cf gpio-config`, `cf harden`, `cf precheck`, `cf verify`).
-
-### 3. Environment Setup
-Install the ChipFoundry CLI tool and set up the local environment (PDKs, OpenLane, and Caravel lite):
-
-```bash
 cf setup
-```
 
-The `cf setup` command installs:
+# Harden the decoder macro
+cf harden ldpc_decoder_top
 
-- Caravel Lite: The Caravel SoC template.
-- Management Core: RISC-V management area required for simulation.
-- OpenLane: The RTL-to-GDS hardening flow.
-- PDK: Skywater 130nm process design kit.
-- Timing Scripts: For Static Timing Analysis (STA).
-
----
-
-## Development Flow
-
-### Hardening the Design
-Hardening is the process of synthesizing your RTL and performing Place & Route (P&R) to create a GDSII layout.
-
-#### Macro Hardening
-Create a subdirectory for each custom macro under `openlane/` containing your `config.tcl`.
-
-```bash
-cf harden --list         # List detected configurations
-cf harden <macro_name>   # Harden a specific macro
-```
-
-#### Integration
-Instantiate your module(s) in `verilog/rtl/user_project_wrapper.v`.
-
-Update `openlane/user_project_wrapper/config.json` environment variables (`VERILOG_FILES_BLACKBOX`, `EXTRA_LEFS`, `EXTRA_GDS_FILES`) to point to your new macros.
-
-#### Wrapper Hardening
-Finalize the top-level user project:
-
-```bash
+# Integrate into Caravel wrapper
 cf harden user_project_wrapper
-```
 
-### Verification
-
-#### 1. Simulation
-We use cocotb for functional verification. Ensure your file lists are updated in `verilog/includes/`.
-
-**Configure GPIO settings first (required before verification):**
-
-```bash
+# Configure GPIO pins
 cf gpio-config
-```
 
-This interactive command will:
-- Configure all GPIO pins interactively
-- Automatically update `verilog/rtl/user_defines.v`
-- Automatically run `gen_gpio_defaults.py` to generate GPIO defaults for simulation
+# Run cocotb verification (RTL)
+cf verify ldpc_basic
 
-GPIO configuration is required before running any verification tests.
+# Run gate-level simulation
+cf verify ldpc_basic --sim gl
 
-Run RTL Simulation:
-
-```bash
-cf verify <test_name>
-```
-
-Run Gate-Level (GL) Simulation:
-
-```bash
-cf verify <test_name> --sim gl
-```
-
-Run all tests:
-
-```bash
-cf verify --all
-```
-
-#### 2. Static Timing Analysis (STA)
-Verify that your design meets timing constraints using OpenSTA:
-
-```bash
-make extract-parasitics
-make create-spef-mapping
-make caravel-sta
-```
-
-> [!NOTE]
-> Run `make setup-timing-scripts` if you need to update the STA environment.
-
----
-
-## GPIO Configuration
-Configure the power-on default configuration for each GPIO using the interactive CLI tool.
-
-**Use the GPIO configuration command:**
-```bash
-cf gpio-config
-```
-
-This command will:
-- Present an interactive form for configuring GPIO pins 5-37 (GPIO 0-4 are fixed system pins)
-- Show available GPIO modes with descriptions
-- Allow selection by number, partial key, or full mode name
-- Save configuration to `.cf/project.json` (as hex values)
-- Automatically update `verilog/rtl/user_defines.v` with the new configuration
-- Automatically run `gen_gpio_defaults.py` to generate GPIO defaults for simulation (if Caravel is installed)
-
-**GPIO Pin Information:**
-- GPIO[0] to GPIO[4]: Preset system pins (do not change).
-- GPIO[5] to GPIO[37]: User-configurable pins.
-
-**Available GPIO Modes:**
-- Management modes: `mgmt_input_nopull`, `mgmt_input_pulldown`, `mgmt_input_pullup`, `mgmt_output`, `mgmt_bidirectional`, `mgmt_analog`
-- User modes: `user_input_nopull`, `user_input_pulldown`, `user_input_pullup`, `user_output`, `user_bidirectional`, `user_output_monitored`, `user_analog`
-
-> [!NOTE]
-> GPIO configuration is required before running `cf precheck` or `cf verify`. Invalid modes cannot be saved - all GPIOs must have valid configurations.
-
----
-
-## Local Precheck
-Before submitting your design for fabrication, run the local precheck to ensure it complies with all shuttle requirements:
-
-> [!IMPORTANT]
-> GPIO configuration is required before running precheck. Make sure you've run `cf gpio-config` first.
-
-```bash
+# Shuttle compliance precheck
 cf precheck
 ```
 
-You can also run specific checks or disable LVS:
+### Python behavioral model
 
 ```bash
-cf precheck --disable-lvs                    # Skip LVS check
-cf precheck --checks license --checks makefile  # Run specific checks only
+cd ../model
+python3 ldpc_sim.py
 ```
----
 
-## Checklist for Shuttle Submission
-- [ ] Top-level macro is named user_project_wrapper.
-- [ ] Full Chip Simulation passes for both RTL and GL.
-- [ ] Hardened Macros are LVS and DRC clean.
-- [ ] user_project_wrapper matches the required pin order/template.
-- [ ] Design passes the local cf precheck.
-- [ ] Documentation (this README) is updated with project-specific details.
+## Roadmap
+
+**Current (Approach A -- Minimal Viable Submission):**
+Wishbone-attached decoder verified in simulation. PicoRV32 firmware injects test LLRs, decodes, and reports results over UART. No external optical hardware required for the demo.
+
+**Future (Approach B -- Full Optical Frontend):**
+Populated PCBA with SiPM or GMAPD detector, transimpedance amplifier (AD8015), and fast comparator. External RP2040 MCU computes real-time LLRs from photon counts. Bench-scale free-space optical link demo (1-5 m).
+
+**Future (Approach C -- Silicon Return):**
+After chipIgnite silicon returns (Oct/Nov 2026): build full reference board, demonstrate free-space optical link with BAE Systems GMAPD detector, and characterize real-silicon BER performance against simulation predictions. Target applications include CubeSat optical downlinks and underwater optical modems.
+
+## License
+
+Licensed under the Apache License, Version 2.0. See [LICENSE](LICENSE) for the full text.
+
+## AI Disclosure
+
+Portions of this project were developed with AI assistance. See [docs/ai-disclosure.md](docs/ai-disclosure.md) for details.
