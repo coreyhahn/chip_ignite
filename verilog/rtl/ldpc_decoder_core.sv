@@ -201,8 +201,9 @@ module ldpc_decoder_core #(
                     iter_cnt  <= '0;
                     row_idx   <= '0;
                     col_idx   <= '0;
-                    converged <= 1'b0;
-                    syndrome_ok <= 1'b0;
+                    // Note: converged, iter_used, syndrome_weight, decoded_bits
+                    // are NOT cleared here so the host can read them after decode.
+                    // They are cleared in INIT when a new decode starts.
                 end
 
                 INIT: begin
@@ -214,10 +215,12 @@ module ldpc_decoder_core #(
                     for (int r = 0; r < M_BASE; r++)
                         for (int c = 0; c < N_BASE; c++)
                             for (int z = 0; z < Z; z++)
-                                msg_cn2vn[r][c][z] <= '0;
+                                msg_cn2vn[r][c][z] <= {Q{1'b0}};
                     row_idx <= '0;
                     col_idx <= '0;
                     iter_cnt <= '0;
+                    converged <= 1'b0;
+                    syndrome_ok <= 1'b0;
                 end
 
                 LAYER_READ: begin
@@ -235,7 +238,12 @@ module ldpc_decoder_core #(
 
                             shifted_z = (z + H_BASE[row_idx][col_idx]) % Z;
                             bit_idx   = int'(col_idx) * Z + shifted_z;
-                            old_msg   = msg_cn2vn[row_idx][col_idx][z];
+                            // On first iteration (iter_cnt==0), old messages are zero
+                            // since no CN update has run yet. Use 0 directly rather
+                            // than reading msg_cn2vn, which may not be reliably zeroed
+                            // by the INIT state in all simulation tools.
+                            old_msg   = (iter_cnt == 0) ?
+                                        {Q{1'b0}} : msg_cn2vn[row_idx][col_idx][z];
                             belief_val = beliefs[bit_idx];
 
                             vn_to_cn[col_idx][z] <= sat_sub(belief_val, old_msg);
@@ -363,10 +371,19 @@ module ldpc_decoder_core #(
         logic signed [Q-1:0] outs [DC];
 
         // Extract signs and magnitudes
+        // Note: -32 (100000) has magnitude 32 which overflows 5-bit field to 0.
+        // Clamp to 31 (max representable magnitude) to avoid corruption.
         sign_xor = 1'b0;
         for (int i = 0; i < DC; i++) begin
+            logic [Q-1:0] abs_val;  // wider to detect overflow
             signs[i] = in[i][Q-1];
-            mags[i]  = in[i][Q-1] ? (~in[i][Q-2:0] + 1) : in[i][Q-2:0];
+            if (in[i][Q-1]) begin
+                abs_val = ~in[i] + 1'b1;
+                // If abs_val overflowed (input was most negative), clamp
+                mags[i] = (abs_val[Q-1]) ? {(Q-1){1'b1}} : abs_val[Q-2:0];
+            end else begin
+                mags[i] = in[i][Q-2:0];
+            end
             sign_xor = sign_xor ^ signs[i];
         end
 
