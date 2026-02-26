@@ -21,12 +21,12 @@
 
     "//": "Macros configurations",
     "MACROS": {
-        "user_proj_example": {
+        "ldpc_decoder_top": {
             "gds": [
-                "dir::../../gds/user_proj_example.gds"
+                "dir::../../gds/ldpc_decoder_top.gds"
             ],
             "lef": [
-                "dir::../../lef/user_proj_example.lef"
+                "dir::../../lef/ldpc_decoder_top.lef"
             ],
             "instances": {
                 "mprj": {
@@ -35,21 +35,21 @@
                 }
             },
             "nl": [
-                "dir::../../verilog/gl/user_proj_example.v"
+                "dir::../../verilog/gl/ldpc_decoder_top.v"
             ],
             "spef": {
                 "min_*": [
-                    "dir::../../spef/multicorner/user_proj_example.min.spef"
+                    "dir::../../spef/multicorner/ldpc_decoder_top.min.spef"
                 ],
                 "nom_*": [
-                    "dir::../../spef/multicorner/user_proj_example.nom.spef"
+                    "dir::../../spef/multicorner/ldpc_decoder_top.nom.spef"
                 ],
                 "max_*": [
-                    "dir::../../spef/multicorner/user_proj_example.max.spef"
+                    "dir::../../spef/multicorner/ldpc_decoder_top.max.spef"
                 ]
             },
             "lib": {
-                "*": "dir::../../lib/user_proj_example.lib"
+                "*": "dir::../../lib/ldpc_decoder_top.lib"
             }
         }
     },
