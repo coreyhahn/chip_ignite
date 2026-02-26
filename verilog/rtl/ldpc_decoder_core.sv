@@ -424,26 +424,32 @@ module ldpc_decoder_core #(
     endtask
 
     // =========================================================================
-    // Saturating arithmetic helpers
+    // Saturating arithmetic helpers (Yosys-compatible: no return, no complex concat)
     // =========================================================================
 
     function automatic logic signed [Q-1:0] sat_add(
-        logic signed [Q-1:0] a, logic signed [Q-1:0] b
+        input logic signed [Q-1:0] a,
+        input logic signed [Q-1:0] b
     );
-        logic signed [Q:0] sum;
-        sum = {a[Q-1], a} + {b[Q-1], b};  // sign-extend and add
-        if (sum > $signed({1'b0, {(Q-1){1'b1}}}))
-            return {1'b0, {(Q-1){1'b1}}};  // +max
-        else if (sum < $signed({1'b1, {(Q-1){1'b0}}}))
-            return {1'b1, {(Q-1){1'b0}}};  // -max
-        else
-            return sum[Q-1:0];
+        reg signed [Q:0] sum;
+        begin
+            sum = {a[Q-1], a} + {b[Q-1], b};
+            if (!sum[Q] && sum[Q-1])         // positive overflow
+                sat_add = {1'b0, {(Q-1){1'b1}}};
+            else if (sum[Q] && !sum[Q-1])    // negative overflow
+                sat_add = {1'b1, {(Q-1){1'b0}}};
+            else
+                sat_add = sum[Q-1:0];
+        end
     endfunction
 
     function automatic logic signed [Q-1:0] sat_sub(
-        logic signed [Q-1:0] a, logic signed [Q-1:0] b
+        input logic signed [Q-1:0] a,
+        input logic signed [Q-1:0] b
     );
-        return sat_add(a, -b);
+        begin
+            sat_sub = sat_add(a, -b);
+        end
     endfunction
 
 endmodule
