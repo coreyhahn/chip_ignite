@@ -32,7 +32,7 @@ module wishbone_interface #(
     input  logic                    stat_busy,
     input  logic                    stat_converged,
     input  logic [4:0]              stat_iter_used,
-    output logic signed [Q-1:0]     llr_input [N],
+    output logic [N*Q-1:0]          llr_input,     // packed LLR vector
     input  logic [K-1:0]            decoded_bits,
     input  logic [7:0]              syndrome_weight,
 
@@ -99,7 +99,7 @@ module wishbone_interface #(
                     int llr_idx;
                     llr_idx = word_idx * 5 + p;
                     if (llr_idx < N)
-                        llr_input[llr_idx] <= wb_dat_i[p*Q +: Q];
+                        llr_input[llr_idx*Q +: Q] <= wb_dat_i[p*Q +: Q];
                 end
             end
         end

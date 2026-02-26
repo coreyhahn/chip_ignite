@@ -6,6 +6,7 @@
 //   - USE_POWER_PINS ifdef for Caravel power pass-through
 //   - 32-bit Wishbone address (lower 8 bits passed to wishbone_interface)
 //   - wb_sel_i byte selects accepted but unused (word-aligned access only)
+//   - LLR interface uses packed vector (Yosys compatibility)
 
 module ldpc_decoder_top #(
     parameter N_BASE    = 8,
@@ -13,7 +14,6 @@ module ldpc_decoder_top #(
     parameter Z         = 32,
     parameter N         = N_BASE * Z,
     parameter K         = Z,
-    parameter M         = M_BASE * Z,
     parameter Q         = 6,
     parameter MAX_ITER  = 30,
     parameter DC        = 8,
@@ -42,7 +42,7 @@ module ldpc_decoder_top #(
     logic        stat_busy;
     logic        stat_converged;
     logic [4:0]  stat_iter_used;
-    logic signed [Q-1:0] llr_input [N];
+    logic [N*Q-1:0] llr_input_flat;  // packed LLR vector
     logic [K-1:0]  decoded_bits;
     logic [7:0]    syndrome_weight;
 
@@ -55,7 +55,7 @@ module ldpc_decoder_top #(
         .ctrl_max_iter(ctrl_max_iter),
         .stat_busy(stat_busy), .stat_converged(stat_converged),
         .stat_iter_used(stat_iter_used),
-        .llr_input(llr_input), .decoded_bits(decoded_bits),
+        .llr_input(llr_input_flat), .decoded_bits(decoded_bits),
         .syndrome_weight(syndrome_weight), .irq_o(irq_o)
     );
 
@@ -65,7 +65,7 @@ module ldpc_decoder_top #(
     ) u_core (
         .clk(clk), .rst_n(rst_n),
         .start(ctrl_start), .early_term_en(ctrl_early_term),
-        .max_iter(ctrl_max_iter), .llr_in(llr_input),
+        .max_iter(ctrl_max_iter), .llr_in(llr_input_flat),
         .busy(stat_busy), .converged(stat_converged),
         .iter_used(stat_iter_used), .decoded_bits(decoded_bits),
         .syndrome_weight(syndrome_weight)

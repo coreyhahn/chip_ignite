@@ -30,8 +30,8 @@ module ldpc_decoder_core #(
     input  logic                    early_term_en,
     input  logic [4:0]              max_iter,
 
-    // Channel LLRs (loaded before start)
-    input  logic signed [Q-1:0]     llr_in [N],
+    // Channel LLRs (loaded before start) - packed vector for Yosys compatibility
+    input  logic [N*Q-1:0]          llr_in,
 
     // Status
     output logic                    busy,
@@ -208,14 +208,15 @@ module ldpc_decoder_core #(
 
                 INIT: begin
                     // Initialize beliefs from channel LLRs
+                    // Use blocking assignment for array in loop (Verilator requirement)
                     for (int j = 0; j < N; j++) begin
-                        beliefs[j] <= llr_in[j];
+                        beliefs[j] = $signed(llr_in[j*Q +: Q]);
                     end
                     // Zero all CN->VN messages
                     for (int r = 0; r < M_BASE; r++)
                         for (int c = 0; c < N_BASE; c++)
                             for (int z = 0; z < Z; z++)
-                                msg_cn2vn[r][c][z] <= {Q{1'b0}};
+                                msg_cn2vn[r][c][z] = {Q{1'b0}};
                     row_idx <= '0;
                     col_idx <= '0;
                     iter_cnt <= '0;
