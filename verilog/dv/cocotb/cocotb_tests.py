@@ -9,3 +9,4 @@ from ldpc_tests.ldpc_basic.ldpc_basic import ldpc_basic
 from ldpc_tests.ldpc_noisy.ldpc_noisy import ldpc_noisy
 from ldpc_tests.ldpc_max_iter.ldpc_max_iter import ldpc_max_iter
 from ldpc_tests.ldpc_back_to_back.ldpc_back_to_back import ldpc_back_to_back
+from ldpc_tests.ldpc_demo.ldpc_demo import ldpc_demo
