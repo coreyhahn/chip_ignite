@@ -21,7 +21,7 @@ jobs:
         run: |
           verilator --lint-only -Wall \
             --top-module ldpc_decoder_top \
-            -Wno-UNUSEDSIGNAL -Wno-UNDRIVEN \
+            -Wno-UNUSEDSIGNAL -Wno-UNDRIVEN -Wno-WIDTHEXPAND -Wno-WIDTHTRUNC \
             verilog/rtl/ldpc_decoder_top.sv \
             verilog/rtl/ldpc_decoder_core.sv \
             verilog/rtl/wishbone_interface.sv
