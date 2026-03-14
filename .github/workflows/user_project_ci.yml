@@ -24,5 +24,4 @@ jobs:
             -Wno-UNUSEDSIGNAL -Wno-UNDRIVEN \
             verilog/rtl/ldpc_decoder_top.sv \
             verilog/rtl/ldpc_decoder_core.sv \
-            verilog/rtl/wishbone_interface.sv \
-            verilog/rtl/hard_decision_out.sv
+            verilog/rtl/wishbone_interface.sv
