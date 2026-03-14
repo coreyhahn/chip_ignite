@@ -1,4 +1,6 @@
 // SPDX-FileCopyrightText: 2023 Efabless Corporation
+// SPDX-FileCopyrightText: 2026 Corey Hahn
+// SPDX-License-Identifier: Apache-2.0
 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.

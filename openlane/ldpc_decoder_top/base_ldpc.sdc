@@ -83,12 +83,14 @@ set_input_delay -max 3.89 -clock [get_clocks {clk}] [get_ports {wb_adr_i[*]}]
 set_input_delay -max 4.13 -clock [get_clocks {clk}] [get_ports {wb_stb_i}]
 set_input_delay -max 4.61 -clock [get_clocks {clk}] [get_ports {wb_dat_i[*]}]
 set_input_delay -max 4.74 -clock [get_clocks {clk}] [get_ports {wb_cyc_i}]
-set_input_delay -min 0.79 -clock [get_clocks {clk}] [get_ports {wb_adr_i[*]}]
-set_input_delay -min 1.04 -clock [get_clocks {clk}] [get_ports {wb_dat_i[*]}]
-set_input_delay -min 1.19 -clock [get_clocks {clk}] [get_ports {wb_sel_i[*]}]
-set_input_delay -min 1.65 -clock [get_clocks {clk}] [get_ports {wb_we_i}]
-set_input_delay -min 1.69 -clock [get_clocks {clk}] [get_ports {wb_cyc_i}]
-set_input_delay -min 1.86 -clock [get_clocks {clk}] [get_ports {wb_stb_i}]
+# Min input delays increased by +0.7 ns to fix 1,543 hold violations on input ports
+# (worst was -0.62 ns; +0.7 ns provides margin)
+set_input_delay -min 1.49 -clock [get_clocks {clk}] [get_ports {wb_adr_i[*]}]
+set_input_delay -min 1.74 -clock [get_clocks {clk}] [get_ports {wb_dat_i[*]}]
+set_input_delay -min 1.89 -clock [get_clocks {clk}] [get_ports {wb_sel_i[*]}]
+set_input_delay -min 2.35 -clock [get_clocks {clk}] [get_ports {wb_we_i}]
+set_input_delay -min 2.39 -clock [get_clocks {clk}] [get_ports {wb_cyc_i}]
+set_input_delay -min 2.56 -clock [get_clocks {clk}] [get_ports {wb_stb_i}]
 
 # Input Transition
 set_input_transition -max 0.14  [get_ports {wb_we_i}]

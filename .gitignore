@@ -15,3 +15,8 @@
 /logs
 openlane2-venv
 design_info.yaml
+
+# Large build artifacts (uploaded via cf push, not GitHub)
+gds/*.gds
+def/*.def
+spef/multicorner/*.spef

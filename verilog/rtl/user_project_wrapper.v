@@ -82,13 +82,21 @@ module user_project_wrapper #(
 /* User project is instantiated  here   */
 /*--------------------------------------*/
 
+// Invert active-high wb_rst_i to active-low rst_n
+// Power pins omitted — connected by physical power grid in layout
+wire rst_n_internal;
+sky130_fd_sc_hd__inv_2 rst_inv (
+    .Y(rst_n_internal),
+    .A(wb_rst_i)
+);
+
 ldpc_decoder_top mprj (
 `ifdef USE_POWER_PINS
     .vccd1(vccd1),
     .vssd1(vssd1),
 `endif
     .clk        (wb_clk_i),
-    .rst_n      (~wb_rst_i),
+    .rst_n      (rst_n_internal),
     .wb_cyc_i   (wbs_cyc_i),
     .wb_stb_i   (wbs_stb_i),
     .wb_we_i    (wbs_we_i),

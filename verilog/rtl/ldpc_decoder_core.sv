@@ -2,14 +2,11 @@
 //
 // Layered scheduling processes one base-matrix row at a time.
 // For each row, we:
-//   1. Read VN beliefs for all Z columns connected to this row
-//   2. Subtract old CN->VN messages to get VN->CN messages
-//   3. Run CN min-sum update
-//   4. Add new CN->VN messages back to VN beliefs
-//   5. Write updated beliefs back
-//
-// This converges ~2x faster than flooding and needs only one message memory
-// (CN->VN messages for current layer, overwritten each layer).
+//   1. LAYER_READ (8 cycles): Read beliefs, subtract old messages → vn_to_cn
+//   2. CN_STAGE1 (1 cycle): Sign/mag extract, min-find (registered)
+//   3. CN_STAGE2 (1 cycle): Extrinsic output generation
+//   4. LAYER_WRITE (8 cycles): Write beliefs + update CN->VN messages
+// Total: 18 cycles/layer × 7 layers + 3 (syndrome) = 129 cycles/iteration
 
 module ldpc_decoder_core #(
     parameter N_BASE    = 8,
@@ -114,12 +111,14 @@ module ldpc_decoder_core #(
 
     typedef enum logic [3:0] {
         IDLE,
-        INIT,           // Initialize beliefs from channel LLRs, zero messages
-        LAYER_READ,     // Read Z beliefs for each of DC columns in current row
-        CN_UPDATE,      // Run min-sum CN update on gathered messages
-        LAYER_WRITE,    // Write updated beliefs and new CN->VN messages
-        SYNDROME,       // Check syndrome after full iteration
-        SYNDROME_DONE,  // Read registered syndrome result
+        INIT,            // Initialize beliefs from channel LLRs, zero messages
+        LAYER_READ,      // Read Z beliefs for each of DC columns in current row
+        CN_STAGE1,       // Pipeline stage 1: sign/mag extract, min-find
+        CN_STAGE2,       // Pipeline stage 2: extrinsic output generation
+        LAYER_WRITE,     // Write beliefs + update CN->VN messages
+        SYNDROME_S1,     // Syndrome pipeline stage 1: compute parity bits
+        SYNDROME_S2,     // Syndrome pipeline stage 2: popcount parity vector
+        SYNDROME_DONE,   // Read registered syndrome result
         DONE
     } state_t;
 
@@ -130,13 +129,26 @@ module ldpc_decoder_core #(
     logic [2:0]  col_idx;       // current column being read/written (0..N_BASE-1)
     logic [4:0]  effective_max_iter;
 
-    // Working registers for current layer CN update
-    logic signed [Q-1:0] vn_to_cn [DC][Z];  // VN->CN messages for current row
-    logic signed [Q-1:0] cn_to_vn [DC][Z];  // new CN->VN messages (output of min-sum)
+    // Working registers for current layer
+    logic signed [Q-1:0] vn_to_cn [DC][Z];
+    logic signed [Q-1:0] cn_to_vn [DC][Z];
 
-    // Syndrome check
+    // CN pipeline stage 1 intermediate registers
+    logic [DC-1:0]  s1_signs    [Z];
+    logic           s1_sign_xor [Z];
+    logic [Q-2:0]   s1_min1     [Z];
+    logic [Q-2:0]   s1_min2     [Z];
+    logic [2:0]     s1_min1_idx [Z];
+
+    // Syndrome pipeline registers
+    logic [M_BASE*Z-1:0] parity_vec;  // 224-bit registered parity results
     logic [7:0] syndrome_cnt;
     logic       syndrome_ok;
+
+    // Popcount balanced adder tree intermediates (combinational)
+    logic [2:0] pc_l1 [56];  // Level 1: 56 groups of 4 bits → 3-bit counts
+    logic [4:0] pc_l2 [14];  // Level 2: 14 groups of 4 → 5-bit counts
+    logic [6:0] pc_l3 [4];   // Level 3: 4 groups → 7-bit counts
 
     assign effective_max_iter = (max_iter == 0) ? MAX_ITER[4:0] : max_iter;
     assign busy = (state != IDLE) && (state != DONE);
@@ -158,25 +170,27 @@ module ldpc_decoder_core #(
         case (state)
             IDLE:        if (start) state_next = INIT;
             INIT:        state_next = LAYER_READ;
-            LAYER_READ:  if (col_idx == N_BASE - 1) state_next = CN_UPDATE;
-            CN_UPDATE:   state_next = LAYER_WRITE;
+            LAYER_READ:  if (col_idx == N_BASE - 1) state_next = CN_STAGE1;
+            CN_STAGE1:   state_next = CN_STAGE2;
+            CN_STAGE2:   state_next = LAYER_WRITE;
             LAYER_WRITE: begin
                 if (col_idx == N_BASE - 1) begin
                     if (row_idx == M_BASE - 1)
-                        state_next = SYNDROME;
+                        state_next = SYNDROME_S1;
                     else
-                        state_next = LAYER_READ;  // next row
+                        state_next = LAYER_READ;
                 end
             end
-            SYNDROME:    state_next = SYNDROME_DONE;
+            SYNDROME_S1: state_next = SYNDROME_S2;
+            SYNDROME_S2: state_next = SYNDROME_DONE;
             SYNDROME_DONE: begin
                 if (syndrome_ok && early_term_en)
                     state_next = DONE;
                 else if (iter_cnt >= effective_max_iter)
                     state_next = DONE;
                 else
-                    state_next = LAYER_READ;  // next iteration
-                end
+                    state_next = LAYER_READ;
+            end
             DONE:        if (!start) state_next = IDLE;
             default:     state_next = IDLE;
         endcase
@@ -261,43 +275,86 @@ module ldpc_decoder_core #(
                         col_idx <= col_idx + 1;
                 end
 
-                CN_UPDATE: begin
-                    // Min-sum update for all Z check nodes in current row
-                    // Each CN has DC=8 incoming messages (one per column)
+                // =============================================================
+                // CN Pipeline Stage 1: Extract signs/mags, find min1/min2
+                // =============================================================
+                CN_STAGE1: begin
                     for (int z = 0; z < Z; z++) begin
-                        // Min-sum: pass individual VN->CN messages directly
-                        cn_min_sum(vn_to_cn[0][z], vn_to_cn[1][z],
-                                   vn_to_cn[2][z], vn_to_cn[3][z],
-                                   vn_to_cn[4][z], vn_to_cn[5][z],
-                                   vn_to_cn[6][z], vn_to_cn[7][z],
-                                   cn_to_vn[0][z], cn_to_vn[1][z],
-                                   cn_to_vn[2][z], cn_to_vn[3][z],
-                                   cn_to_vn[4][z], cn_to_vn[5][z],
-                                   cn_to_vn[6][z], cn_to_vn[7][z]);
+                        logic [DC-1:0]  signs_w;
+                        logic           sign_xor_w;
+                        logic [Q-2:0]   mags_w [DC];
+                        logic [Q-2:0]   min1_w, min2_w;
+                        int             min1_idx_w;
+
+                        sign_xor_w = 1'b0;
+                        for (int i = 0; i < DC; i++) begin
+                            logic [Q-1:0] abs_val;
+                            signs_w[i] = vn_to_cn[i][z][Q-1];
+                            if (vn_to_cn[i][z][Q-1]) begin
+                                abs_val = ~vn_to_cn[i][z] + 1'b1;
+                                mags_w[i] = (abs_val[Q-1]) ? {(Q-1){1'b1}} : abs_val[Q-2:0];
+                            end else begin
+                                mags_w[i] = vn_to_cn[i][z][Q-2:0];
+                            end
+                            sign_xor_w = sign_xor_w ^ signs_w[i];
+                        end
+
+                        min1_w = {(Q-1){1'b1}};
+                        min2_w = {(Q-1){1'b1}};
+                        min1_idx_w = 0;
+                        for (int i = 0; i < DC; i++) begin
+                            if (mags_w[i] < min1_w) begin
+                                min2_w     = min1_w;
+                                min1_w     = mags_w[i];
+                                min1_idx_w = i;
+                            end else if (mags_w[i] < min2_w) begin
+                                min2_w = mags_w[i];
+                            end
+                        end
+
+                        s1_signs[z]    = signs_w;
+                        s1_sign_xor[z] = sign_xor_w;
+                        s1_min1[z]     = min1_w;
+                        s1_min2[z]     = min2_w;
+                        s1_min1_idx[z] = min1_idx_w[2:0];
                     end
-                    col_idx <= '0;  // prepare for LAYER_WRITE
                 end
 
+                // =============================================================
+                // CN Pipeline Stage 2: Compute extrinsic outputs + pre-register
+                // first LAYER_WRITE shift value
+                // =============================================================
+                CN_STAGE2: begin
+                    for (int z = 0; z < Z; z++) begin
+                        for (int j = 0; j < DC; j++) begin
+                            logic [Q-2:0] mag_out;
+                            logic         sign_out;
+
+                            mag_out  = (j[2:0] == s1_min1_idx[z]) ? s1_min2[z] : s1_min1[z];
+                            mag_out  = (mag_out > 5'd1) ? (mag_out - 5'd1) : 5'd0;
+                            sign_out = s1_sign_xor[z] ^ s1_signs[z][j];
+
+                            cn_to_vn[j][z] <= sign_out ? (~{1'b0, mag_out} + 1'b1) : {1'b0, mag_out};
+                        end
+                    end
+                    col_idx <= '0;
+                end
+
+                // =============================================================
+                // LAYER_WRITE: Write beliefs and update CN->VN messages
+                // =============================================================
                 LAYER_WRITE: begin
-                    // Write back: update beliefs and store new CN->VN messages
-                    // Skip unconnected columns (H_BASE == -1)
                     if (H_BASE[row_idx][col_idx] >= 0) begin
                         for (int z = 0; z < Z; z++) begin
-                            int bit_idx;
                             int shifted_z;
-                            logic signed [Q-1:0] new_msg;
-                            logic signed [Q-1:0] old_extrinsic;
+                            int bit_idx;
 
                             shifted_z = (z + H_BASE[row_idx][col_idx]) % Z;
                             bit_idx   = int'(col_idx) * Z + shifted_z;
-                            new_msg   = cn_to_vn[col_idx][z];
-                            old_extrinsic = vn_to_cn[col_idx][z];
 
-                            // belief = extrinsic (VN->CN) + new CN->VN message
-                            beliefs[bit_idx] <= sat_add(old_extrinsic, new_msg);
-
-                            // Store new message for next iteration
-                            msg_cn2vn[row_idx][col_idx][z] <= new_msg;
+                            beliefs[bit_idx] <= sat_add(vn_to_cn[col_idx][z],
+                                                        cn_to_vn[col_idx][z]);
+                            msg_cn2vn[row_idx][col_idx][z] <= cn_to_vn[col_idx][z];
                         end
                     end
 
@@ -312,10 +369,9 @@ module ldpc_decoder_core #(
                     end
                 end
 
-                SYNDROME: begin
-                    // Check H * c_hat == 0 (compute syndrome weight)
-                    // Only include connected columns (H_BASE >= 0)
-                    syndrome_cnt = '0;
+                // Syndrome Pipeline Stage 1: Compute parity bits (register)
+                // Each parity is only 2-3 XOR levels deep (~3-4 ns)
+                SYNDROME_S1: begin
                     for (int r = 0; r < M_BASE; r++) begin
                         for (int z = 0; z < Z; z++) begin
                             logic parity;
@@ -328,9 +384,35 @@ module ldpc_decoder_core #(
                                     parity = parity ^ beliefs[bit_idx][Q-1];
                                 end
                             end
-                            if (parity) syndrome_cnt = syndrome_cnt + 1;
+                            parity_vec[r * Z + z] <= parity;
                         end
                     end
+                end
+
+                // Syndrome Pipeline Stage 2: Popcount registered parity vector
+                // 224-bit popcount via adder tree (~14 ns)
+                SYNDROME_S2: begin
+                    // Balanced 4-wide adder tree popcount (no loop-carried dependency)
+                    // Level 1: 56 groups of 4 bits → 3-bit counts
+                    for (int i = 0; i < 56; i++)
+                        pc_l1[i] = {2'b0, parity_vec[4*i]} + {2'b0, parity_vec[4*i+1]} +
+                                   {2'b0, parity_vec[4*i+2]} + {2'b0, parity_vec[4*i+3]};
+
+                    // Level 2: 14 groups of 4 three-bit counts → 5-bit counts
+                    for (int i = 0; i < 14; i++)
+                        pc_l2[i] = {2'b0, pc_l1[4*i]} + {2'b0, pc_l1[4*i+1]} +
+                                   {2'b0, pc_l1[4*i+2]} + {2'b0, pc_l1[4*i+3]};
+
+                    // Level 3: 14 → 4 (3 groups of 4 + 1 group of 2) → 7-bit counts
+                    pc_l3[0] = {2'b0, pc_l2[0]}  + {2'b0, pc_l2[1]}  + {2'b0, pc_l2[2]}  + {2'b0, pc_l2[3]};
+                    pc_l3[1] = {2'b0, pc_l2[4]}  + {2'b0, pc_l2[5]}  + {2'b0, pc_l2[6]}  + {2'b0, pc_l2[7]};
+                    pc_l3[2] = {2'b0, pc_l2[8]}  + {2'b0, pc_l2[9]}  + {2'b0, pc_l2[10]} + {2'b0, pc_l2[11]};
+                    pc_l3[3] = {2'b0, pc_l2[12]} + {2'b0, pc_l2[13]};
+
+                    // Level 4: final sum → 8-bit count
+                    syndrome_cnt = {1'b0, pc_l3[0]} + {1'b0, pc_l3[1]} +
+                                   {1'b0, pc_l3[2]} + {1'b0, pc_l3[3]};
+
                     syndrome_weight <= syndrome_cnt;
                     syndrome_ok <= (syndrome_cnt == 0);
 
@@ -353,78 +435,7 @@ module ldpc_decoder_core #(
     end
 
     // =========================================================================
-    // Min-sum CN update function
-    // =========================================================================
-
-    // Offset min-sum for DC=8 inputs (individual ports for iverilog compatibility)
-    // For each output j: sign = XOR of all other signs, magnitude = min of all other magnitudes - offset
-    task automatic cn_min_sum(
-        input  logic signed [Q-1:0] in0, in1, in2, in3,
-                                     in4, in5, in6, in7,
-        output logic signed [Q-1:0] out0, out1, out2, out3,
-                                     out4, out5, out6, out7
-    );
-        logic signed [Q-1:0] ins [DC];
-        logic [DC-1:0] signs;
-        logic [Q-2:0]  mags [DC];
-        logic          sign_xor;
-        logic [Q-2:0]  min1, min2;
-        int            min1_idx;
-        logic signed [Q-1:0] outs [DC];
-
-        ins[0] = in0; ins[1] = in1; ins[2] = in2; ins[3] = in3;
-        ins[4] = in4; ins[5] = in5; ins[6] = in6; ins[7] = in7;
-
-        // Extract signs and magnitudes
-        // Note: -32 (100000) has magnitude 32 which overflows 5-bit field to 0.
-        // Clamp to 31 (max representable magnitude) to avoid corruption.
-        sign_xor = 1'b0;
-        for (int i = 0; i < DC; i++) begin
-            logic [Q-1:0] abs_val;
-            signs[i] = ins[i][Q-1];
-            if (ins[i][Q-1]) begin
-                abs_val = ~ins[i] + 1'b1;
-                // If abs_val overflowed (input was most negative), clamp
-                mags[i] = (abs_val[Q-1]) ? {(Q-1){1'b1}} : abs_val[Q-2:0];
-            end else begin
-                mags[i] = ins[i][Q-2:0];
-            end
-            sign_xor = sign_xor ^ signs[i];
-        end
-
-        // Find two smallest magnitudes
-        min1 = {(Q-1){1'b1}};
-        min2 = {(Q-1){1'b1}};
-        min1_idx = 0;
-        for (int i = 0; i < DC; i++) begin
-            if (mags[i] < min1) begin
-                min2     = min1;
-                min1     = mags[i];
-                min1_idx = i;
-            end else if (mags[i] < min2) begin
-                min2 = mags[i];
-            end
-        end
-
-        // Compute extrinsic outputs with offset correction
-        for (int j = 0; j < DC; j++) begin
-            logic [Q-2:0] mag_out;
-            logic          sign_out;
-
-            mag_out  = (j == min1_idx) ? min2 : min1;
-            // Offset correction (subtract 1 in integer representation)
-            mag_out  = (mag_out > 1) ? (mag_out - 1) : {(Q-1){1'b0}};
-            sign_out = sign_xor ^ signs[j];
-
-            outs[j] = sign_out ? (~{1'b0, mag_out} + 1) : {1'b0, mag_out};
-        end
-
-        out0 = outs[0]; out1 = outs[1]; out2 = outs[2]; out3 = outs[3];
-        out4 = outs[4]; out5 = outs[5]; out6 = outs[6]; out7 = outs[7];
-    endtask
-
-    // =========================================================================
-    // Saturating arithmetic helpers (Yosys-compatible: no return, no complex concat)
+    // Saturating arithmetic (Yosys-compatible)
     // =========================================================================
 
     function automatic logic signed [Q-1:0] sat_add(

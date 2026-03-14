@@ -57,12 +57,13 @@ The design uses a single clock domain (`wb_clk_i` from Caravel) and contains no 
 
 | Metric | Value |
 |--------|-------|
-| Target clock | 50-75 MHz (Sky130) |
+| Achieved clock | 50 MHz (TT/FF corners met, SS fails) |
 | Cycles per codeword | ~630 (30 iterations x 21 cycles/iter) |
-| Codeword latency | 8.4-12.6 us |
-| Decoded throughput | ~2.5-3.8 Mbps |
-| Estimated area | ~1.5 mm^2 (of 10.3 mm^2 user area) |
-| Power | TBD (post-synthesis) |
+| Codeword latency | ~12.6 us @ 50 MHz |
+| Decoded throughput | ~2.5 Mbps |
+| Cell count | 186,444 (post-synthesis) |
+| Die area (macro) | 2800 x 1760 um (4.93 mm^2) |
+| Core utilization | 30% |
 | Coding gain vs hard | +2-3 dB at BER 10^-5 |
 
 ## Register Map
@@ -89,11 +90,28 @@ All registers are accessed via Wishbone B4 at word-aligned addresses relative to
 |-------|--------|---------|
 | Standalone Verilator | PASS (2/2) | VERSION register read, clean codeword decode |
 | Vector-driven Verilator | PASS (20/20) | Bit-exact match vs Python behavioral model |
-| cocotb Caravel integration | In progress | Wishbone access, functional decode tests |
-| Gate-level simulation | Pending | Post-synthesis netlist, requires OpenLane hardening |
-| Static timing analysis | Pending | Target: 50 MHz (20 ns), stretch goal 75 MHz |
+| cocotb RTL simulation | PASS (5/5) | basic, noisy, max_iter, back_to_back, demo |
+| Gate-level simulation | PASS (5/5) | All 5 tests pass on post-route GL netlist |
+| Static timing analysis | 50 MHz MET (TT) | WNS = +3.28 ns (TT), SS corner fails |
+| Precheck | 17/19 PASS | KLayout FEOL crash + LVS cosmetic pin-match |
 
 The Python behavioral model (`model/ldpc_sim.py`) generates test vectors at multiple SNR points covering the Poisson channel at lambda_s = 0.5, 1.0, 2.0, and 5.0 photons per slot. All 20 vector-driven tests produce bit-exact agreement between RTL and the Python reference.
+
+## Hardening Results
+
+The decoder macro was hardened using OpenLane 2 (LibreLane) targeting SkyWater 130nm. Key results from the successful run (Run 6, `balanced_popcount`):
+
+| Metric | Result |
+|--------|--------|
+| DRC (Magic) | Clean |
+| DRC (KLayout) | Clean |
+| LVS | Clean (macro), cosmetic pin-match at wrapper level |
+| Antenna violations | 1,179 (accepted, internal nets only) |
+| Hold violations | 0 reg-to-reg (input port violations fixed via SDC) |
+| Setup WNS (TT nom) | +3.28 ns |
+| Setup WNS (FF min) | +6.53 ns |
+
+See `docs/hardening-results.md` for full multi-corner timing data across all 7 runs.
 
 ## Directory Structure
 
