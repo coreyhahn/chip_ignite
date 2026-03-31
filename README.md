@@ -10,7 +10,7 @@ A soft-input LDPC decoder ASIC targeting the ChipFoundry chipIgnite shuttle (Sky
 
 ### Free-Space Optical Downlinks (CubeSat, UAV-to-Ground)
 
-Low-Earth orbit CubeSat optical downlinks operate at 1-5 photons per slot due to extreme path loss over 400-2000 km. The rate 1/8 code provides 8x redundancy, enabling reliable communication well below 1 photon per information bit. At ~100 mW total power (86 mW decoder + ~15 mW Caravel management core), the ASIC fits within CubeSat payload power budgets (typically 1-5 W allocated to communications). The 2.5 Mbps decoded throughput matches typical CubeSat downlink requirements. The same decoder serves UAV-to-ground and building-to-building free-space optical (FSO) links where atmospheric turbulence and beam wander reduce received photon counts to similar levels.
+Low-Earth orbit CubeSat optical downlinks operate at 1-5 photons per slot due to extreme path loss over 400-2000 km. The rate 1/8 code provides 8x redundancy, enabling reliable communication well below 1 photon per information bit. At ~100 mW total power (86 mW decoder + ~15 mW Caravel management core), the ASIC consumes under 2% of a typical 3U CubeSat power budget (7-20 W total, with 2-5 W typically allocated to the communications payload). The 2.5 Mbps decoded throughput matches typical CubeSat downlink requirements. The same decoder serves UAV-to-ground and building-to-building free-space optical (FSO) links where atmospheric turbulence and beam wander reduce received photon counts to similar levels.
 
 ### Underwater Optical Modems
 
@@ -136,7 +136,7 @@ A minimal breakout board for silicon bring-up and firmware demo, designed for im
 |-----------|-------|
 | Dimensions | 50 x 80 mm |
 | Layers | 2 (standard FR4) |
-| Fabrication | JLCPCB ($2/board, 5-unit MOQ) |
+| Fabrication | JLCPCB (~$2 for 5 boards + shipping) |
 | Power | USB-C or barrel jack, 5V input |
 | Interface | UART console at 115200 baud |
 | EDA tool | KiCad 8 |
@@ -217,7 +217,7 @@ A complete bench-scale free-space optical link for end-to-end demonstration:
 | Enclosure | 3D-printed (OpenSCAD parametric), standoffs, cutouts | $5 |
 | **Complete demo system** | | **$150-250** |
 
-Link parameters: 1-5 m free-space path, 0.5-5 photons/slot at receiver, 650 nm wavelength (visible, eye-safe at these power levels).
+Link parameters: 1-5 m free-space path, 0.5-5 photons/slot at receiver, 650 nm wavelength. TX power < 0.39 mW (IEC 60825-1 Class 1, eye-safe under all viewing conditions).
 
 ### High-Performance Optical Frontend (Advanced Configuration)
 
@@ -246,7 +246,7 @@ A photon-number-resolving detector like the Amplification Technologies DAPD repo
 LLR_PNR(k) = (lambda_s) - k * ln((lambda_s + lambda_b) / lambda_b)
 ```
 
-At low photon levels (lambda_s = 1-2), distinguishing k=0 from k=1 from k=2 arrivals provides substantially richer soft information than binary detection. This richer LLR feeds directly into the decoder's 6-bit quantized input, exploiting the full dynamic range of the soft-decision architecture. The result is improved coding gain and a lower operating threshold -- the decoder approaches its theoretical performance limit only when fed high-quality soft information.
+At low photon levels (lambda_s = 1-2), distinguishing k=0 from k=1 from k=2 arrivals provides richer soft information than binary detection. This richer LLR feeds directly into the decoder's 6-bit quantized input, exploiting the full dynamic range of the soft-decision architecture. Note: true single-photon-number resolution is demonstrated with silicon DAPDs at visible wavelengths; InGaAs DAPDs at 1550 nm currently have coarser resolution (~tens of photons minimum detectable), so the PNR advantage is strongest in the visible/near-IR regime and improves as detector technology matures at telecom wavelengths.
 
 **Integration path:**
 
@@ -380,7 +380,7 @@ GDSII layout viewable in KLayout. All DRC checks clean (Magic and KLayout). LVS 
 - KiCad schematics complete for Part A breakout + Part B optical frontend
 
 **Phase 2: Silicon Bring-Up (Oct/Nov 2026, on silicon return)**
-- Part A breakout board ordered from JLCPCB (~$2/board, 5-unit MOQ)
+- Part A breakout board ordered from JLCPCB (~$2 for 5 bare PCBs + shipping)
 - Components ordered from Digi-Key/LCSC (~$8 BOM per board)
 - Board assembly (hand-solder or JLCPCB SMT assembly)
 - First silicon bring-up: VERSION register read over UART, firmware demo execution
