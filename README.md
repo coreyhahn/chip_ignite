@@ -10,7 +10,7 @@ A soft-input LDPC decoder ASIC targeting the ChipFoundry chipIgnite shuttle (Sky
 
 ### Free-Space Optical Downlinks (CubeSat, UAV-to-Ground)
 
-Low-Earth orbit CubeSat optical downlinks operate at 1-5 photons per slot due to extreme path loss over 400-2000 km. The rate 1/8 code provides 8x redundancy, enabling reliable communication well below 1 photon per information bit. At 85 mW total power (decoder + Caravel), the ASIC fits CubeSat power budgets (typically 1-5 W total spacecraft). The 2.5 Mbps decoded throughput matches typical CubeSat downlink requirements. The same decoder serves UAV-to-ground and building-to-building free-space optical (FSO) links where atmospheric turbulence and beam wander reduce received photon counts to similar levels.
+Low-Earth orbit CubeSat optical downlinks operate at 1-5 photons per slot due to extreme path loss over 400-2000 km. The rate 1/8 code provides 8x redundancy, enabling reliable communication well below 1 photon per information bit. At ~100 mW total power (86 mW decoder + ~15 mW Caravel management core), the ASIC fits within CubeSat payload power budgets (typically 1-5 W allocated to communications). The 2.5 Mbps decoded throughput matches typical CubeSat downlink requirements. The same decoder serves UAV-to-ground and building-to-building free-space optical (FSO) links where atmospheric turbulence and beam wander reduce received photon counts to similar levels.
 
 ### Underwater Optical Modems
 
@@ -108,24 +108,25 @@ A minimal breakout board for silicon bring-up and firmware demo, designed for im
 ```
          USB-C
            |
-     +-----v------+
-     |  FT232RL   |     +--------+
-     |  USB-UART  |---->| SPI    |
-     +-----+------+     | Flash  |
-           |             | W25Q32 |
-     +-----v------+     +---+----+
-     |  AP2112K   |         |
-     |  3.3V LDO  |   +----v-----------+
-     +-----+------+   |                |
-           |           |  Caravel       |
-     +-----v------+   |  QFN-64        |
-     |  AP2112K   |   |  (LDPC decoder |
-     |  1.8V LDO  |-->|   inside)      |
-     +-----+------+   |                |
-           |           +----+-----------+
-     +-----v------+        |
-     | 25 MHz XTAL|--------+
-     +------------+
+     +-----v------+     +--------+
+     |  CH340C    |     | SPI    |
+     |  USB-UART  |---->| Flash  |
+     +-----+------+     | W25Q32 |
+           |             +---+----+
+     +-----v------+         |
+     |  AP2112K   |   +----v-----------+
+     |  3.3V LDO  |   |                |
+     +-----+------+   |  Caravel       |
+           |           |  QFN-64        |
+     +-----v------+   |  (LDPC decoder |
+     |  AMS1117   |   |   inside)      |
+     |  1.8V 1A   |-->|                |
+     +-----+------+   +----+-----------+
+           |                |
+     +-----v-----------+   |
+     | SiT8008 25 MHz   |--+
+     | CMOS oscillator   |
+     +-------------------+
                     Reset btn, Power LED, 2x Status LEDs
 ```
 
@@ -144,10 +145,10 @@ A minimal breakout board for silicon bring-up and firmware demo, designed for im
 
 | Component | Part | Qty | Est. Cost |
 |-----------|------|-----|-----------|
-| 25 MHz crystal oscillator | ABM8-25.000MHZ-B2-T | 1 | $0.50 |
+| 25 MHz CMOS oscillator | SiT8008BI-73-25E | 1 | $0.90 |
 | 3.3V LDO regulator | AP2112K-3.3TRG1 | 1 | $0.35 |
-| 1.8V LDO regulator | AP2112K-1.8TRG1 | 1 | $0.35 |
-| USB-UART bridge | FT232RL | 1 | $4.50 |
+| 1.8V LDO regulator (1A) | AMS1117-1.8 | 1 | $0.25 |
+| USB-UART bridge | CH340C | 1 | $0.50 |
 | SPI flash (32 Mbit) | W25Q32JVSSIQ | 1 | $0.65 |
 | USB-C connector | USB4110-GF-A | 1 | $0.60 |
 | Decoupling caps (100nF) | CL05B104KO5NNNC | 12 | $0.60 |
@@ -155,9 +156,9 @@ A minimal breakout board for silicon bring-up and firmware demo, designed for im
 | Reset button | PTS645SM43SMTR92 | 1 | $0.15 |
 | LEDs + resistors | -- | 5 | $0.50 |
 | PCB fabrication (qty 5) | JLCPCB 2-layer FR4 | 1 | $2.00 |
-| **Total (excl. Caravel chip)** | | | **~$11** |
+| **Total (excl. Caravel chip)** | | | **~$8** |
 
-All components are commodity parts available from Digi-Key and LCSC with no long-lead items. Board is designed for hand assembly or JLCPCB SMT service (~$30-50 assembled in qty 5).
+All components are commodity parts available from Digi-Key and LCSC with no long-lead items. The CH340C includes a built-in oscillator (no external crystal needed). The AMS1117-1.8 provides 1A output current for headroom on the 1.8V core supply. Board is designed for hand assembly or JLCPCB SMT service (~$25-40 assembled in qty 5).
 
 ### Optical Frontend -- Part B (Reference Design)
 
@@ -169,7 +170,7 @@ A reference design for the optical receiver frontend, sharing the same PCB as Pa
   +----v--------+     +-------------+     +----------+
   | GMAPD/SiPM  |---->| TIA         |---->| Fast     |
   | Detector     |     | AD8015      |     | Comp.    |
-  | (HV bias)    |     | 240 MHz BW  |     | ADCMP607 |
+  | (bias ~30V)  |     | 240 MHz BW  |     | ADCMP607 |
   +----+---------+     +-------------+     +----+-----+
        |                                        |
   +----v--------+                          +----v-----+
@@ -187,9 +188,9 @@ A reference design for the optical receiver frontend, sharing the same PCB as Pa
 **Part B signal chain:**
 1. **Detector**: Geiger-mode APD (BAE Systems GMAPD) or SiPM stand-in (ON Semi C-Series MicroFC-60035) for bench demos
 2. **TIA**: AD8015 transimpedance amplifier (240 MHz bandwidth, 10 kOhm gain)
-3. **Comparator**: ADCMP607 (3.5 GHz bandwidth, LVPECL output) converts analog pulse to digital timestamp
+3. **Comparator**: ADCMP607 (800 ps propagation delay, CML output) converts analog pulse to digital timestamp
 4. **LLR computation**: RP2040 MCU counts photon arrivals per slot, computes Poisson-model LLRs, writes to Caravel via SPI/UART
-5. **HV bias**: Isolated DC-DC for detector bias (20-70V depending on detector)
+5. **HV bias**: Isolated DC-DC boost converter for SiPM bias (~25-30V)
 
 **Bill of Materials (Part B additional):**
 
@@ -199,10 +200,10 @@ A reference design for the optical receiver frontend, sharing the same PCB as Pa
 | Transimpedance amplifier | AD8015ARZ | 1 | $8 |
 | Fast comparator | ADCMP607BCPZ | 1 | $6 |
 | Companion MCU | RP2040 | 1 | $1 |
-| HV bias module | EMCO Q02-5 | 1 | $15 |
+| SiPM bias supply (30V boost) | LT3482 + passives | 1 | $8 |
 | SMA connector (ext. clock) | SMA-J-P-H-ST-EM1 | 1 | $1 |
 | Passives + connectors | -- | ~20 | $5 |
-| **Part B additional total** | | | **~$66** |
+| **Part B additional total** | | | **~$59** |
 
 ### Full Bench Demo System
 
@@ -226,8 +227,10 @@ The Part B SiPM frontend is designed for low-cost bench demos. For operational d
 
 | Detector | Type | Wavelength | Key Advantage | Typical Use |
 |----------|------|------------|---------------|-------------|
-| BAE Systems GMAPD | Geiger-mode APD array | 1064 / 1550 nm | High sensitivity, proven in NASA/DARPA programs | Deep-space optical, LIDAR |
-| ATI DAPD | Discrete amplification PD | 1550 nm | Photon-number-resolving (PNR) | Quantum optics, high-fidelity optical comm |
+| GMAPD array (MIT Lincoln Lab / BAE) | Geiger-mode APD array | 1064 / 1550 nm | High sensitivity, proven in NASA/DARPA programs | Deep-space optical, LIDAR |
+| Amplification Technologies DAPD | Discrete amplification photon detector | 1550 nm | Photon-number-resolving (PNR) | Quantum optics, high-fidelity optical comm |
+
+**Availability note:** GMAPD arrays are primarily developed under government contracts (MIT Lincoln Laboratory, BAE Systems) and are not commercial off-the-shelf parts -- procurement typically requires a defense or research relationship. The Amplification Technologies DAPD is available commercially for research applications. For non-restricted deployments, InGaAs SPADs (e.g., ID Quantique ID230) provide single-photon sensitivity at 1550 nm as a commercially available alternative.
 
 **Why photon-number resolution matters for this decoder:**
 
@@ -237,7 +240,7 @@ The SiPM and GMAPD in Geiger mode produce binary outputs (click / no-click). The
 LLR_binary = log(P(click | bit=1) / P(click | bit=0))
 ```
 
-A photon-number-resolving detector like the ATI DAPD reports the actual photon count k per slot. The LLR uses the full Poisson probability mass function:
+A photon-number-resolving detector like the Amplification Technologies DAPD reports the actual photon count k per slot. The LLR uses the full Poisson probability mass function:
 
 ```
 LLR_PNR(k) = (lambda_s) - k * ln((lambda_s + lambda_b) / lambda_b)
@@ -256,11 +259,11 @@ The electrical interface is identical to Part B: the detector's analog output fe
 | Item | Est. Cost | Status |
 |------|-----------|--------|
 | chipIgnite shuttle | Contest-covered | GDSII submitted |
-| Part A breakout board (assembled qty 5) | $30-50 | KiCad design complete, fab-ready on silicon return |
-| Part B optical frontend (additional) | ~$66 | Schematic complete, components specified (DNP) |
+| Part A breakout board (assembled qty 5) | $25-40 | KiCad design complete, fab-ready on silicon return |
+| Part B optical frontend (additional) | ~$59 | Schematic complete, components specified (DNP) |
 | Full demo system (TX + RX + optics) | $150-250 | Documented, post-silicon integration |
 | Advanced frontend (GMAPD or DAPD) | $5K-15K | Integration path documented, no ASIC changes needed |
-| **Minimum viable demo** | **$30-50** | **Buildable immediately on silicon return** |
+| **Minimum viable demo** | **$25-40** | **Buildable immediately on silicon return** |
 
 ## Verification Status
 
@@ -378,7 +381,7 @@ GDSII layout viewable in KLayout. All DRC checks clean (Magic and KLayout). LVS 
 
 **Phase 2: Silicon Bring-Up (Oct/Nov 2026, on silicon return)**
 - Part A breakout board ordered from JLCPCB (~$2/board, 5-unit MOQ)
-- Components ordered from Digi-Key (~$11 BOM per board)
+- Components ordered from Digi-Key/LCSC (~$8 BOM per board)
 - Board assembly (hand-solder or JLCPCB SMT assembly)
 - First silicon bring-up: VERSION register read over UART, firmware demo execution
 - Measure real-silicon decode latency and power, compare to simulation predictions
