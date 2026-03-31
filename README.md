@@ -150,10 +150,10 @@ A minimal breakout board for silicon bring-up and firmware demo, designed for im
 | 1.8V LDO regulator (1A) | AMS1117-1.8 | 1 | $0.25 |
 | USB-UART bridge | CH340C | 1 | $0.50 |
 | SPI flash (32 Mbit) | W25Q32JVSSIQ | 1 | $0.65 |
-| USB-C connector | USB4110-GF-A | 1 | $0.60 |
+| USB-C connector | USB4110-GF-A | 1 | $1.20 |
 | Decoupling caps (100nF) | CL05B104KO5NNNC | 12 | $0.60 |
 | Bulk caps (10uF) | CL10A106KP8NNNC | 4 | $0.40 |
-| Reset button | PTS645SM43SMTR92 | 1 | $0.15 |
+| Reset button | PTS645SM43SMTR92 | 1 | $0.30 |
 | LEDs + resistors | -- | 5 | $0.50 |
 | PCB fabrication (qty 5) | JLCPCB 2-layer FR4 | 1 | $2.00 |
 | **Total (excl. Caravel chip)** | | | **~$8** |
@@ -196,14 +196,14 @@ A reference design for the optical receiver frontend, sharing the same PCB as Pa
 
 | Component | Part | Qty | Est. Cost |
 |-----------|------|-----|-----------|
-| SiPM detector (demo) | MicroFC-60035-SMT | 1 | $30 |
+| SiPM detector (demo) | MicroFC-60035-SMT | 1 | $23 |
 | Transimpedance amplifier | AD8015ARZ | 1 | $8 |
 | Fast comparator | ADCMP607BCPZ | 1 | $6 |
 | Companion MCU | RP2040 | 1 | $1 |
 | SiPM bias supply (30V boost) | LT3482 + passives | 1 | $8 |
 | SMA connector (ext. clock) | SMA-J-P-H-ST-EM1 | 1 | $1 |
 | Passives + connectors | -- | ~20 | $5 |
-| **Part B additional total** | | | **~$59** |
+| **Part B additional total** | | | **~$52** |
 
 ### Full Bench Demo System
 
@@ -212,10 +212,10 @@ A complete bench-scale free-space optical link for end-to-end demonstration:
 | Component | Description | Est. Cost |
 |-----------|-------------|-----------|
 | TX board | Modulated laser diode (650 nm) + driver + collimating optics | $40-60 |
-| RX board | Part A + Part B assembled | $80-120 |
+| RX board | Part A + Part B assembled | $75-95 |
 | Optics | Aspheric collimating lens, detector alignment rail | $20-30 |
 | Enclosure | 3D-printed (OpenSCAD parametric), standoffs, cutouts | $5 |
-| **Complete demo system** | | **$150-250** |
+| **Complete demo system** | | **$140-190** |
 
 Link parameters: 1-5 m free-space path, 0.5-5 photons/slot at receiver, 650 nm wavelength. TX power < 0.39 mW (IEC 60825-1 Class 1, eye-safe under all viewing conditions).
 
@@ -260,8 +260,8 @@ The electrical interface is identical to Part B: the detector's analog output fe
 |------|-----------|--------|
 | chipIgnite shuttle | Contest-covered | GDSII submitted |
 | Part A breakout board (assembled qty 5) | $25-40 | KiCad design complete, fab-ready on silicon return |
-| Part B optical frontend (additional) | ~$59 | Schematic complete, components specified (DNP) |
-| Full demo system (TX + RX + optics) | $150-250 | Documented, post-silicon integration |
+| Part B optical frontend (additional) | ~$52 | Schematic complete, components specified (DNP) |
+| Full demo system (TX + RX + optics) | $140-190 | Documented, post-silicon integration |
 | Advanced frontend (GMAPD or DAPD) | $5K-15K | Integration path documented, no ASIC changes needed |
 | **Minimum viable demo** | **$25-40** | **Buildable immediately on silicon return** |
 
