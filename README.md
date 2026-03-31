@@ -218,6 +218,39 @@ A complete bench-scale free-space optical link for end-to-end demonstration:
 
 Link parameters: 1-5 m free-space path, 0.5-5 photons/slot at receiver, 650 nm wavelength (visible, eye-safe at these power levels).
 
+### High-Performance Optical Frontend (Advanced Configuration)
+
+The Part B SiPM frontend is designed for low-cost bench demos. For operational deployment, the decoder architecture supports direct integration with professional-grade single-photon detectors that unlock its full soft-decision capability.
+
+**Detector options:**
+
+| Detector | Type | Wavelength | Key Advantage | Typical Use |
+|----------|------|------------|---------------|-------------|
+| BAE Systems GMAPD | Geiger-mode APD array | 1064 / 1550 nm | High sensitivity, proven in NASA/DARPA programs | Deep-space optical, LIDAR |
+| ATI DAPD | Discrete amplification PD | 1550 nm | Photon-number-resolving (PNR) | Quantum optics, high-fidelity optical comm |
+
+**Why photon-number resolution matters for this decoder:**
+
+The SiPM and GMAPD in Geiger mode produce binary outputs (click / no-click). The channel LLR reduces to a single value per slot:
+
+```
+LLR_binary = log(P(click | bit=1) / P(click | bit=0))
+```
+
+A photon-number-resolving detector like the ATI DAPD reports the actual photon count k per slot. The LLR uses the full Poisson probability mass function:
+
+```
+LLR_PNR(k) = (lambda_s) - k * ln((lambda_s + lambda_b) / lambda_b)
+```
+
+At low photon levels (lambda_s = 1-2), distinguishing k=0 from k=1 from k=2 arrivals provides substantially richer soft information than binary detection. This richer LLR feeds directly into the decoder's 6-bit quantized input, exploiting the full dynamic range of the soft-decision architecture. The result is improved coding gain and a lower operating threshold -- the decoder approaches its theoretical performance limit only when fed high-quality soft information.
+
+**Integration path:**
+
+The electrical interface is identical to Part B: the detector's analog output feeds through a TIA and into either a comparator (binary mode) or a multi-bit ADC (PNR mode). In PNR mode, the RP2040 companion MCU digitizes the photon count and computes the full Poisson LLR before writing to the decoder. No changes to the LDPC decoder ASIC are required -- the 6-bit LLR input accommodates both binary and PNR channel models.
+
+**1550 nm operation** enables compatibility with standard telecom fiber infrastructure, opening additional deployment scenarios: fiber-fed quantum key distribution, metropolitan free-space optical links through atmospheric windows, and hybrid fiber-FSO networks where the last mile is free-space.
+
 ## Cost Summary
 
 | Item | Est. Cost | Status |
@@ -226,6 +259,7 @@ Link parameters: 1-5 m free-space path, 0.5-5 photons/slot at receiver, 650 nm w
 | Part A breakout board (assembled qty 5) | $30-50 | KiCad design complete, fab-ready on silicon return |
 | Part B optical frontend (additional) | ~$66 | Schematic complete, components specified (DNP) |
 | Full demo system (TX + RX + optics) | $150-250 | Documented, post-silicon integration |
+| Advanced frontend (GMAPD or DAPD) | $5K-15K | Integration path documented, no ASIC changes needed |
 | **Minimum viable demo** | **$30-50** | **Buildable immediately on silicon return** |
 
 ## Verification Status
