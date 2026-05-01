@@ -5,10 +5,10 @@ Clock Skew (Hold)
 ======================= max_ss_100C_1v60 Corner ===================================
 
 Clock clk
-7.898979 source latency mprj/_306_/CLK ^
--8.830502 target latency mprj/_312_/CLK ^
+10.319999 source latency mprj/_153664_/CLK ^
+-12.421330 target latency mprj/_152021_/CLK ^
 -0.250000 clock uncertainty
--0.920459 CRPR
+-0.920000 CRPR
 --------------
--2.101983 hold skew
+-3.271332 hold skew
 

@@ -5,10 +5,10 @@ Clock Skew (Setup)
 ======================= min_tt_025C_1v80 Corner ===================================
 
 Clock clk
-9.235883 source latency mprj/_296_/CLK ^
--6.320013 target latency mprj/_328_/CLK ^
+8.958368 source latency mprj/_153047_/CLK ^
+-7.527683 target latency mprj/_140573_/CLK ^
 0.250000 clock uncertainty
-0.000000 CRPR
+-0.920000 CRPR
 --------------
-3.165870 setup skew
+0.760686 setup skew
 

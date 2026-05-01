@@ -2,20 +2,20 @@ Netgen 1.5.278 compiled on Sun Sep 29 13:29:03 UTC 2024
 Warning: netgen command 'format' use fully-qualified name '::netgen::format'
 Warning: netgen command 'global' use fully-qualified name '::netgen::global'
 Warning:  A case-insensitive file has been read and so the	verilog file must be treated case-insensitive to match.
-Reading SPICE netlist file '/home/marwan/caravel_user_project/dependencies/pdks/sky130A/libs.ref/sky130_fd_sc_hd/spice/sky130_ef_sc_hd__decap_12.spice'...
+Reading SPICE netlist file '/home/cah/r2d2/code/fpga/claude_project/ldpc_optical/chip_ignite/dependencies/pdks/sky130A/libs.ref/sky130_fd_sc_hd/spice/sky130_ef_sc_hd__decap_12.spice'...
 Call to undefined subcircuit sky130_fd_pr__pfet_01v8_hvt
 Creating placeholder cell definition.
 Call to undefined subcircuit sky130_fd_pr__nfet_01v8
 Creating placeholder cell definition.
-Reading SPICE netlist file '/home/marwan/caravel_user_project/dependencies/pdks/sky130A/libs.ref/sky130_fd_sc_hd/spice/sky130_ef_sc_hd__decap_20_12.spice'...
-Reading SPICE netlist file '/home/marwan/caravel_user_project/dependencies/pdks/sky130A/libs.ref/sky130_fd_sc_hd/spice/sky130_ef_sc_hd__decap_40_12.spice'...
-Reading SPICE netlist file '/home/marwan/caravel_user_project/dependencies/pdks/sky130A/libs.ref/sky130_fd_sc_hd/spice/sky130_ef_sc_hd__decap_60_12.spice'...
-Reading SPICE netlist file '/home/marwan/caravel_user_project/dependencies/pdks/sky130A/libs.ref/sky130_fd_sc_hd/spice/sky130_ef_sc_hd__decap_80_12.spice'...
-Reading SPICE netlist file '/home/marwan/caravel_user_project/dependencies/pdks/sky130A/libs.ref/sky130_fd_sc_hd/spice/sky130_ef_sc_hd__fill_12.spice'...
-Reading SPICE netlist file '/home/marwan/caravel_user_project/dependencies/pdks/sky130A/libs.ref/sky130_fd_sc_hd/spice/sky130_ef_sc_hd__fill_2.spice'...
-Reading SPICE netlist file '/home/marwan/caravel_user_project/dependencies/pdks/sky130A/libs.ref/sky130_fd_sc_hd/spice/sky130_ef_sc_hd__fill_4.spice'...
-Reading SPICE netlist file '/home/marwan/caravel_user_project/dependencies/pdks/sky130A/libs.ref/sky130_fd_sc_hd/spice/sky130_ef_sc_hd__fill_8.spice'...
-Reading SPICE netlist file '/home/marwan/caravel_user_project/dependencies/pdks/sky130A/libs.ref/sky130_fd_sc_hd/spice/sky130_fd_sc_hd.spice'...
+Reading SPICE netlist file '/home/cah/r2d2/code/fpga/claude_project/ldpc_optical/chip_ignite/dependencies/pdks/sky130A/libs.ref/sky130_fd_sc_hd/spice/sky130_ef_sc_hd__decap_20_12.spice'...
+Reading SPICE netlist file '/home/cah/r2d2/code/fpga/claude_project/ldpc_optical/chip_ignite/dependencies/pdks/sky130A/libs.ref/sky130_fd_sc_hd/spice/sky130_ef_sc_hd__decap_40_12.spice'...
+Reading SPICE netlist file '/home/cah/r2d2/code/fpga/claude_project/ldpc_optical/chip_ignite/dependencies/pdks/sky130A/libs.ref/sky130_fd_sc_hd/spice/sky130_ef_sc_hd__decap_60_12.spice'...
+Reading SPICE netlist file '/home/cah/r2d2/code/fpga/claude_project/ldpc_optical/chip_ignite/dependencies/pdks/sky130A/libs.ref/sky130_fd_sc_hd/spice/sky130_ef_sc_hd__decap_80_12.spice'...
+Reading SPICE netlist file '/home/cah/r2d2/code/fpga/claude_project/ldpc_optical/chip_ignite/dependencies/pdks/sky130A/libs.ref/sky130_fd_sc_hd/spice/sky130_ef_sc_hd__fill_12.spice'...
+Reading SPICE netlist file '/home/cah/r2d2/code/fpga/claude_project/ldpc_optical/chip_ignite/dependencies/pdks/sky130A/libs.ref/sky130_fd_sc_hd/spice/sky130_ef_sc_hd__fill_2.spice'...
+Reading SPICE netlist file '/home/cah/r2d2/code/fpga/claude_project/ldpc_optical/chip_ignite/dependencies/pdks/sky130A/libs.ref/sky130_fd_sc_hd/spice/sky130_ef_sc_hd__fill_4.spice'...
+Reading SPICE netlist file '/home/cah/r2d2/code/fpga/claude_project/ldpc_optical/chip_ignite/dependencies/pdks/sky130A/libs.ref/sky130_fd_sc_hd/spice/sky130_ef_sc_hd__fill_8.spice'...
+Reading SPICE netlist file '/home/cah/r2d2/code/fpga/claude_project/ldpc_optical/chip_ignite/dependencies/pdks/sky130A/libs.ref/sky130_fd_sc_hd/spice/sky130_fd_sc_hd.spice'...
 Call to undefined subcircuit sky130_fd_pr__res_generic_po
 Creating placeholder cell definition.
 Call to undefined subcircuit sky130_fd_pr__special_nfet_01v8
@@ -29,11 +29,13 @@ Creating placeholder cell definition.
 Call to undefined subcircuit sky130_fd_sc_hd__nor2_2
 Creating placeholder cell definition.
 Warning:  A case-insensitive file has been read and so the	verilog file must be treated case-insensitive to match.
-Creating placeholder cell definition for module user_proj_example.
+Creating placeholder cell definition for module ldpc_decoder_top.
+Note:  Implicit pin HI in instance TIE_ZERO_zero_ of sky130_fd_sc_hd__conb_1 in cell user_project_wrapper
+Note:  Implicit pin LO in instance TIE_ONE_one_ of sky130_fd_sc_hd__conb_1 in cell user_project_wrapper
 Treating empty subcircuits as black-box cells
 Generating JSON file result
 
-Reading setup file /nix/store/pqxyc4xmydcs5adig47yyc29r3svp5nx-python3-3.11.9-env/lib/python3.11/site-packages/librelane/scripts/netgen/setup.tcl
+Reading setup file /nix/store/wn1fdnkvfs0r3b197kgsf2fwavmsn82c-python3.11-librelane-2.4.6/lib/python3.11/site-packages/librelane/scripts/netgen/setup.tcl
 
 Model sky130_fd_pr__res_generic_po pin 1 == 2
 No property value found for device sky130_fd_pr__res_generic_po
@@ -92,33 +94,577 @@ No property perim found for device sky130_fd_pr__special_pfet_01v8_hvt
 No property topography found for device sky130_fd_pr__special_pfet_01v8_hvt
 No property value found for device sky130_fd_pr__diode_pw2nd_05v5
 No property mult found for device sky130_fd_pr__diode_pw2nd_05v5
-Comparison output logged to file /home/marwan/caravel_user_project/openlane/user_project_wrapper/runs/25_11_11_05_00/61-netgen-lvs/reports/lvs.netgen.rpt
-Logging to file "/home/marwan/caravel_user_project/openlane/user_project_wrapper/runs/25_11_11_05_00/61-netgen-lvs/reports/lvs.netgen.rpt" enabled
+Comparison output logged to file /home/cah/r2d2/code/fpga/claude_project/ldpc_optical/chip_ignite/openlane/user_project_wrapper/runs/cf_wrapper_v5/63-netgen-lvs/reports/lvs.netgen.rpt
+Logging to file "/home/cah/r2d2/code/fpga/claude_project/ldpc_optical/chip_ignite/openlane/user_project_wrapper/runs/cf_wrapper_v5/63-netgen-lvs/reports/lvs.netgen.rpt" enabled
 
-Contents of circuit 1:  Circuit: 'user_proj_example'
-Circuit user_proj_example contains 0 device instances.
-Circuit contains 0 nets, and 543 disconnected pins.
-Contents of circuit 2:  Circuit: 'user_proj_example'
-Circuit user_proj_example contains 0 device instances.
+Contents of circuit 1:  Circuit: 'sky130_ef_sc_hd__decap_40_12'
+Circuit sky130_ef_sc_hd__decap_40_12 contains 0 device instances.
+Circuit contains 0 nets, and 4 disconnected pins.
+Contents of circuit 2:  Circuit: 'sky130_ef_sc_hd__decap_40_12'
+Circuit sky130_ef_sc_hd__decap_40_12 contains 2 device instances.
+  Class: sky130_fd_pr__nfet_01v8 instances:   1
+  Class: sky130_fd_pr__pfet_01v8_hvt instances:   1
+Circuit contains 4 nets.
+
+Circuit sky130_ef_sc_hd__decap_40_12 contains no devices.
+
+Contents of circuit 1:  Circuit: 'sky130_fd_sc_hd__fill_1'
+Circuit sky130_fd_sc_hd__fill_1 contains 0 device instances.
+Circuit contains 0 nets, and 4 disconnected pins.
+Contents of circuit 2:  Circuit: 'sky130_fd_sc_hd__fill_1'
+Circuit sky130_fd_sc_hd__fill_1 contains 0 device instances.
+Circuit contains 0 nets, and 4 disconnected pins.
+
+Circuit sky130_fd_sc_hd__fill_1 contains no devices.
+
+Contents of circuit 1:  Circuit: 'sky130_fd_sc_hd__fill_4'
+Circuit sky130_fd_sc_hd__fill_4 contains 0 device instances.
+Circuit contains 0 nets, and 4 disconnected pins.
+Contents of circuit 2:  Circuit: 'sky130_fd_sc_hd__fill_4'
+Circuit sky130_fd_sc_hd__fill_4 contains 0 device instances.
+Circuit contains 0 nets, and 4 disconnected pins.
+
+Circuit sky130_fd_sc_hd__fill_4 contains no devices.
+
+Contents of circuit 1:  Circuit: 'sky130_fd_sc_hd__tapvpwrvgnd_1'
+Circuit sky130_fd_sc_hd__tapvpwrvgnd_1 contains 0 device instances.
+Circuit contains 0 nets, and 2 disconnected pins.
+Contents of circuit 2:  Circuit: 'sky130_fd_sc_hd__tapvpwrvgnd_1'
+Circuit sky130_fd_sc_hd__tapvpwrvgnd_1 contains 0 device instances.
+Circuit contains 0 nets, and 2 disconnected pins.
+
+Circuit sky130_fd_sc_hd__tapvpwrvgnd_1 contains no devices.
+
+Contents of circuit 1:  Circuit: 'sky130_fd_sc_hd__fill_2'
+Circuit sky130_fd_sc_hd__fill_2 contains 0 device instances.
+Circuit contains 0 nets, and 4 disconnected pins.
+Contents of circuit 2:  Circuit: 'sky130_fd_sc_hd__fill_2'
+Circuit sky130_fd_sc_hd__fill_2 contains 0 device instances.
+Circuit contains 0 nets, and 4 disconnected pins.
+
+Circuit sky130_fd_sc_hd__fill_2 contains no devices.
+
+Contents of circuit 1:  Circuit: 'sky130_fd_sc_hd__fill_8'
+Circuit sky130_fd_sc_hd__fill_8 contains 0 device instances.
+Circuit contains 0 nets, and 4 disconnected pins.
+Contents of circuit 2:  Circuit: 'sky130_fd_sc_hd__fill_8'
+Circuit sky130_fd_sc_hd__fill_8 contains 0 device instances.
+Circuit contains 0 nets, and 4 disconnected pins.
+
+Circuit sky130_fd_sc_hd__fill_8 contains no devices.
+
+Contents of circuit 1:  Circuit: 'sky130_fd_sc_hd__decap_3'
+Circuit sky130_fd_sc_hd__decap_3 contains 0 device instances.
+Circuit contains 0 nets, and 4 disconnected pins.
+Contents of circuit 2:  Circuit: 'sky130_fd_sc_hd__decap_3'
+Circuit sky130_fd_sc_hd__decap_3 contains 2 device instances.
+  Class: sky130_fd_pr__nfet_01v8 instances:   1
+  Class: sky130_fd_pr__pfet_01v8_hvt instances:   1
+Circuit contains 4 nets.
+
+Circuit sky130_fd_sc_hd__decap_3 contains no devices.
+
+Contents of circuit 1:  Circuit: 'sky130_fd_sc_hd__inv_2'
+Circuit sky130_fd_sc_hd__inv_2 contains 0 device instances.
+Circuit contains 0 nets, and 6 disconnected pins.
+Contents of circuit 2:  Circuit: 'sky130_fd_sc_hd__inv_2'
+Circuit sky130_fd_sc_hd__inv_2 contains 4 device instances.
+  Class: sky130_fd_pr__nfet_01v8 instances:   2
+  Class: sky130_fd_pr__pfet_01v8_hvt instances:   2
+Circuit contains 6 nets.
+
+Circuit sky130_fd_sc_hd__inv_2 contains no devices.
+
+Contents of circuit 1:  Circuit: 'sky130_fd_sc_hd__conb_1'
+Circuit sky130_fd_sc_hd__conb_1 contains 0 device instances.
+Circuit contains 0 nets, and 6 disconnected pins.
+Contents of circuit 2:  Circuit: 'sky130_fd_sc_hd__conb_1'
+Circuit sky130_fd_sc_hd__conb_1 contains 2 device instances.
+  Class: sky130_fd_pr__res_generic_po instances:   2
+Circuit contains 4 nets, and 2 disconnected pins.
+
+Circuit sky130_fd_sc_hd__conb_1 contains no devices.
+
+Contents of circuit 1:  Circuit: 'ldpc_decoder_top'
+Circuit ldpc_decoder_top contains 0 device instances.
+Circuit contains 0 nets, and 109 disconnected pins.
+Contents of circuit 2:  Circuit: 'ldpc_decoder_top'
+Circuit ldpc_decoder_top contains 0 device instances.
 Circuit contains 0 nets.
 
-Circuit user_proj_example contains no devices.
+Circuit ldpc_decoder_top contains no devices.
+Pins io_oeb[36] and io_oeb[37] are shorted in cell user_project_wrapper (1)
+Pins io_oeb[35] and io_oeb[37] are shorted in cell user_project_wrapper (1)
+Pins io_oeb[34] and io_oeb[37] are shorted in cell user_project_wrapper (1)
+Pins io_oeb[33] and io_oeb[37] are shorted in cell user_project_wrapper (1)
+Pins io_oeb[32] and io_oeb[37] are shorted in cell user_project_wrapper (1)
+Pins io_oeb[31] and io_oeb[37] are shorted in cell user_project_wrapper (1)
+Pins io_oeb[30] and io_oeb[37] are shorted in cell user_project_wrapper (1)
+Pins io_oeb[29] and io_oeb[37] are shorted in cell user_project_wrapper (1)
+Pins io_oeb[28] and io_oeb[37] are shorted in cell user_project_wrapper (1)
+Pins io_oeb[27] and io_oeb[37] are shorted in cell user_project_wrapper (1)
+Pins io_oeb[26] and io_oeb[37] are shorted in cell user_project_wrapper (1)
+Pins io_oeb[25] and io_oeb[37] are shorted in cell user_project_wrapper (1)
+Pins io_oeb[24] and io_oeb[37] are shorted in cell user_project_wrapper (1)
+Pins io_oeb[23] and io_oeb[37] are shorted in cell user_project_wrapper (1)
+Pins io_oeb[22] and io_oeb[37] are shorted in cell user_project_wrapper (1)
+Pins io_oeb[21] and io_oeb[37] are shorted in cell user_project_wrapper (1)
+Pins io_oeb[20] and io_oeb[37] are shorted in cell user_project_wrapper (1)
+Pins io_oeb[19] and io_oeb[37] are shorted in cell user_project_wrapper (1)
+Pins io_oeb[18] and io_oeb[37] are shorted in cell user_project_wrapper (1)
+Pins io_oeb[17] and io_oeb[37] are shorted in cell user_project_wrapper (1)
+Pins io_oeb[16] and io_oeb[37] are shorted in cell user_project_wrapper (1)
+Pins io_oeb[15] and io_oeb[37] are shorted in cell user_project_wrapper (1)
+Pins io_oeb[14] and io_oeb[37] are shorted in cell user_project_wrapper (1)
+Pins io_oeb[13] and io_oeb[37] are shorted in cell user_project_wrapper (1)
+Pins io_oeb[12] and io_oeb[37] are shorted in cell user_project_wrapper (1)
+Pins io_oeb[11] and io_oeb[37] are shorted in cell user_project_wrapper (1)
+Pins io_oeb[10] and io_oeb[37] are shorted in cell user_project_wrapper (1)
+Pins io_oeb[9] and io_oeb[37] are shorted in cell user_project_wrapper (1)
+Pins io_oeb[8] and io_oeb[37] are shorted in cell user_project_wrapper (1)
+Pins io_oeb[7] and io_oeb[37] are shorted in cell user_project_wrapper (1)
+Pins io_oeb[6] and io_oeb[37] are shorted in cell user_project_wrapper (1)
+Pins io_oeb[5] and io_oeb[37] are shorted in cell user_project_wrapper (1)
+Pins io_oeb[4] and io_oeb[37] are shorted in cell user_project_wrapper (1)
+Pins io_oeb[3] and io_oeb[37] are shorted in cell user_project_wrapper (1)
+Pins io_oeb[2] and io_oeb[37] are shorted in cell user_project_wrapper (1)
+Pins io_oeb[1] and io_oeb[37] are shorted in cell user_project_wrapper (1)
+Pins io_oeb[0] and io_oeb[37] are shorted in cell user_project_wrapper (1)
+Pins io_out[36] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins io_out[35] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins io_out[34] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins io_out[33] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins io_out[32] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins io_out[31] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins io_out[30] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins io_out[29] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins io_out[28] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins io_out[27] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins io_out[26] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins io_out[25] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins io_out[24] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins io_out[23] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins io_out[22] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins io_out[21] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins io_out[20] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins io_out[19] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins io_out[18] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins io_out[17] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins io_out[16] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins io_out[15] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins io_out[14] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins io_out[13] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins io_out[12] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins io_out[11] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins io_out[10] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins io_out[9] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins io_out[8] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins io_out[7] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins io_out[6] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins io_out[5] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins io_out[4] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins io_out[3] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins io_out[2] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins io_out[1] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins io_out[0] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[127] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[126] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[125] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[124] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[123] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[122] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[121] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[120] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[119] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[118] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[117] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[116] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[115] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[114] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[113] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[112] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[111] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[110] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[109] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[108] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[107] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[106] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[105] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[104] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[103] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[102] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[101] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[100] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[99] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[98] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[97] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[96] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[95] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[94] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[93] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[92] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[91] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[90] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[89] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[88] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[87] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[86] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[85] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[84] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[83] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[82] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[81] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[80] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[79] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[78] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[77] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[76] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[75] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[74] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[73] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[72] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[71] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[70] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[69] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[68] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[67] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[66] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[65] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[64] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[63] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[62] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[61] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[60] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[59] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[58] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[57] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[56] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[55] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[54] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[53] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[52] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[51] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[50] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[49] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[48] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[47] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[46] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[45] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[44] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[43] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[42] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[41] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[40] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[39] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[38] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[37] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[36] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[35] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[34] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[33] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[32] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[31] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[30] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[29] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[28] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[27] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[26] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[25] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[24] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[23] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[22] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[21] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[20] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[19] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[18] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[17] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[16] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[15] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[14] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[13] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[12] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[11] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[10] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[9] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[8] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[7] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[6] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[5] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[4] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[3] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[2] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[1] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[0] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins user_irq[2] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins user_irq[1] and io_out[37] are shorted in cell user_project_wrapper (1)
 
 Contents of circuit 1:  Circuit: 'user_project_wrapper'
-Circuit user_project_wrapper contains 1 device instances.
-  Class: user_proj_example     instances:   1
-Circuit contains 543 nets, and 102 disconnected pins.
+Circuit user_project_wrapper contains 591949 device instances.
+  Class: sky130_fd_sc_hd__inv_2 instances:   1
+  Class: ldpc_decoder_top      instances:   1
+  Class: sky130_fd_sc_hd__conb_1 instances:   2
+  Class: sky130_fd_sc_hd__decap_3 instances: 3878
+  Class: sky130_fd_sc_hd__tapvpwrvgnd_1 instances: 73400
+  Class: sky130_fd_sc_hd__fill_1 instances: 74687
+  Class: sky130_fd_sc_hd__fill_2 instances: 72746
+  Class: sky130_fd_sc_hd__fill_4 instances: 72622
+  Class: sky130_fd_sc_hd__fill_8 instances: 968
+  Class: sky130_ef_sc_hd__decap_40_12 instances: 293644
+Circuit contains 116 nets, and 328 disconnected pins.
 Contents of circuit 2:  Circuit: 'user_project_wrapper'
-Circuit user_project_wrapper contains 1 device instances.
-  Class: user_proj_example     instances:   1
-Circuit contains 543 nets, and 102 disconnected pins.
+Circuit user_project_wrapper contains 591949 device instances.
+  Class: sky130_fd_sc_hd__inv_2 instances:   1
+  Class: ldpc_decoder_top      instances:   1
+  Class: sky130_fd_sc_hd__conb_1 instances:   2
+  Class: sky130_fd_sc_hd__decap_3 instances: 3878
+  Class: sky130_fd_sc_hd__tapvpwrvgnd_1 instances: 73400
+  Class: sky130_fd_sc_hd__fill_1 instances: 74687
+  Class: sky130_fd_sc_hd__fill_2 instances: 72746
+  Class: sky130_fd_sc_hd__fill_4 instances: 72622
+  Class: sky130_fd_sc_hd__fill_8 instances: 968
+  Class: sky130_ef_sc_hd__decap_40_12 instances: 293644
+Circuit contains 116 nets, and 328 disconnected pins.
 
-Circuit 1 contains 1 devices, Circuit 2 contains 1 devices.
-Circuit 1 contains 543 nets,    Circuit 2 contains 543 nets.
+Circuit was modified by parallel/series device merging.
+New circuit summary:
 
+Contents of circuit 1:  Circuit: 'user_project_wrapper'
+Circuit user_project_wrapper contains 11 device instances.
+  Class: sky130_fd_sc_hd__inv_2 instances:   1
+  Class: ldpc_decoder_top      instances:   1
+  Class: sky130_fd_sc_hd__conb_1 instances:   2
+  Class: sky130_fd_sc_hd__decap_3 instances:   1
+  Class: sky130_fd_sc_hd__tapvpwrvgnd_1 instances:   1
+  Class: sky130_fd_sc_hd__fill_1 instances:   1
+  Class: sky130_fd_sc_hd__fill_2 instances:   1
+  Class: sky130_fd_sc_hd__fill_4 instances:   1
+  Class: sky130_fd_sc_hd__fill_8 instances:   1
+  Class: sky130_ef_sc_hd__decap_40_12 instances:   1
+Circuit contains 116 nets, and 328 disconnected pins.
+Contents of circuit 2:  Circuit: 'user_project_wrapper'
+Circuit user_project_wrapper contains 11 device instances.
+  Class: sky130_fd_sc_hd__inv_2 instances:   1
+  Class: ldpc_decoder_top      instances:   1
+  Class: sky130_fd_sc_hd__conb_1 instances:   2
+  Class: sky130_fd_sc_hd__decap_3 instances:   1
+  Class: sky130_fd_sc_hd__tapvpwrvgnd_1 instances:   1
+  Class: sky130_fd_sc_hd__fill_1 instances:   1
+  Class: sky130_fd_sc_hd__fill_2 instances:   1
+  Class: sky130_fd_sc_hd__fill_4 instances:   1
+  Class: sky130_fd_sc_hd__fill_8 instances:   1
+  Class: sky130_ef_sc_hd__decap_40_12 instances:   1
+Circuit contains 116 nets, and 328 disconnected pins.
+
+Circuit 1 contains 11 devices, Circuit 2 contains 11 devices.
+Circuit 1 contains 116 nets,    Circuit 2 contains 116 nets.
+
+Pins io_oeb[36] and io_oeb[37] are shorted in cell user_project_wrapper (1)
+Pins io_oeb[35] and io_oeb[37] are shorted in cell user_project_wrapper (1)
+Pins io_oeb[34] and io_oeb[37] are shorted in cell user_project_wrapper (1)
+Pins io_oeb[33] and io_oeb[37] are shorted in cell user_project_wrapper (1)
+Pins io_oeb[32] and io_oeb[37] are shorted in cell user_project_wrapper (1)
+Pins io_oeb[31] and io_oeb[37] are shorted in cell user_project_wrapper (1)
+Pins io_oeb[30] and io_oeb[37] are shorted in cell user_project_wrapper (1)
+Pins io_oeb[29] and io_oeb[37] are shorted in cell user_project_wrapper (1)
+Pins io_oeb[28] and io_oeb[37] are shorted in cell user_project_wrapper (1)
+Pins io_oeb[27] and io_oeb[37] are shorted in cell user_project_wrapper (1)
+Pins io_oeb[26] and io_oeb[37] are shorted in cell user_project_wrapper (1)
+Pins io_oeb[25] and io_oeb[37] are shorted in cell user_project_wrapper (1)
+Pins io_oeb[24] and io_oeb[37] are shorted in cell user_project_wrapper (1)
+Pins io_oeb[23] and io_oeb[37] are shorted in cell user_project_wrapper (1)
+Pins io_oeb[22] and io_oeb[37] are shorted in cell user_project_wrapper (1)
+Pins io_oeb[21] and io_oeb[37] are shorted in cell user_project_wrapper (1)
+Pins io_oeb[20] and io_oeb[37] are shorted in cell user_project_wrapper (1)
+Pins io_oeb[19] and io_oeb[37] are shorted in cell user_project_wrapper (1)
+Pins io_oeb[18] and io_oeb[37] are shorted in cell user_project_wrapper (1)
+Pins io_oeb[17] and io_oeb[37] are shorted in cell user_project_wrapper (1)
+Pins io_oeb[16] and io_oeb[37] are shorted in cell user_project_wrapper (1)
+Pins io_oeb[15] and io_oeb[37] are shorted in cell user_project_wrapper (1)
+Pins io_oeb[14] and io_oeb[37] are shorted in cell user_project_wrapper (1)
+Pins io_oeb[13] and io_oeb[37] are shorted in cell user_project_wrapper (1)
+Pins io_oeb[12] and io_oeb[37] are shorted in cell user_project_wrapper (1)
+Pins io_oeb[11] and io_oeb[37] are shorted in cell user_project_wrapper (1)
+Pins io_oeb[10] and io_oeb[37] are shorted in cell user_project_wrapper (1)
+Pins io_oeb[9] and io_oeb[37] are shorted in cell user_project_wrapper (1)
+Pins io_oeb[8] and io_oeb[37] are shorted in cell user_project_wrapper (1)
+Pins io_oeb[7] and io_oeb[37] are shorted in cell user_project_wrapper (1)
+Pins io_oeb[6] and io_oeb[37] are shorted in cell user_project_wrapper (1)
+Pins io_oeb[5] and io_oeb[37] are shorted in cell user_project_wrapper (1)
+Pins io_oeb[4] and io_oeb[37] are shorted in cell user_project_wrapper (1)
+Pins io_oeb[3] and io_oeb[37] are shorted in cell user_project_wrapper (1)
+Pins io_oeb[2] and io_oeb[37] are shorted in cell user_project_wrapper (1)
+Pins io_oeb[1] and io_oeb[37] are shorted in cell user_project_wrapper (1)
+Pins io_oeb[0] and io_oeb[37] are shorted in cell user_project_wrapper (1)
+Pins io_out[36] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins io_out[35] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins io_out[34] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins io_out[33] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins io_out[32] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins io_out[31] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins io_out[30] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins io_out[29] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins io_out[28] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins io_out[27] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins io_out[26] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins io_out[25] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins io_out[24] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins io_out[23] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins io_out[22] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins io_out[21] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins io_out[20] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins io_out[19] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins io_out[18] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins io_out[17] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins io_out[16] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins io_out[15] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins io_out[14] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins io_out[13] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins io_out[12] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins io_out[11] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins io_out[10] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins io_out[9] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins io_out[8] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins io_out[7] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins io_out[6] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins io_out[5] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins io_out[4] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins io_out[3] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins io_out[2] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins io_out[1] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins io_out[0] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[127] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[126] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[125] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[124] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[123] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[122] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[121] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[120] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[119] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[118] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[117] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[116] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[115] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[114] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[113] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[112] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[111] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[110] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[109] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[108] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[107] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[106] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[105] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[104] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[103] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[102] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[101] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[100] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[99] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[98] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[97] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[96] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[95] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[94] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[93] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[92] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[91] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[90] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[89] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[88] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[87] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[86] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[85] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[84] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[83] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[82] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[81] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[80] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[79] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[78] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[77] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[76] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[75] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[74] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[73] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[72] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[71] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[70] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[69] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[68] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[67] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[66] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[65] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[64] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[63] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[62] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[61] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[60] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[59] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[58] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[57] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[56] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[55] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[54] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[53] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[52] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[51] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[50] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[49] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[48] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[47] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[46] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[45] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[44] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[43] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[42] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[41] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[40] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[39] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[38] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[37] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[36] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[35] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[34] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[33] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[32] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[31] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[30] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[29] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[28] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[27] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[26] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[25] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[24] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[23] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[22] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[21] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[20] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[19] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[18] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[17] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[16] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[15] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[14] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[13] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[12] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[11] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[10] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[9] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[8] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[7] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[6] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[5] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[4] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[3] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[2] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[1] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins la_data_out[0] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins user_irq[2] and io_out[37] are shorted in cell user_project_wrapper (1)
+Pins user_irq[1] and io_out[37] are shorted in cell user_project_wrapper (1)
 
 Final result: 
-Circuits match uniquely.
-.
-Logging to file "/home/marwan/caravel_user_project/openlane/user_project_wrapper/runs/25_11_11_05_00/61-netgen-lvs/reports/lvs.netgen.rpt" disabled
+Top level cell failed pin matching.
+
+Logging to file "/home/cah/r2d2/code/fpga/claude_project/ldpc_optical/chip_ignite/openlane/user_project_wrapper/runs/cf_wrapper_v5/63-netgen-lvs/reports/lvs.netgen.rpt" disabled
 LVS Done.
