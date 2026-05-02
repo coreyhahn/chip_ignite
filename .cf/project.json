@@ -46,6 +46,12 @@
       "37": "13'h1800"
     },
     "platform_project_id": "16298082-327a-416d-9459-d173271af3fc",
-    "name": "Contest Design"
+    "name": "Contest Design",
+    "type": "digital",
+    "user": "corey-hahn",
+    "version": "1",
+    "user_project_wrapper_hash": "",
+    "submission_state": "Draft",
+    "github_repo_url": "https://github.com/coreyhahn/chip_ignite"
   }
 }
