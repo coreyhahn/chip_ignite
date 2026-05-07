@@ -35,7 +35,7 @@ Note:  Implicit pin LO in instance TIE_ONE_one_ of sky130_fd_sc_hd__conb_1 in ce
 Treating empty subcircuits as black-box cells
 Generating JSON file result
 
-Reading setup file /nix/store/wn1fdnkvfs0r3b197kgsf2fwavmsn82c-python3.11-librelane-2.4.6/lib/python3.11/site-packages/librelane/scripts/netgen/setup.tcl
+Reading setup file /nix/store/iah2c26wzpgdvqc1jv2xxg55xq5km74d-python3-3.11.9-env/lib/python3.11/site-packages/librelane/scripts/netgen/setup.tcl
 
 Model sky130_fd_pr__res_generic_po pin 1 == 2
 No property value found for device sky130_fd_pr__res_generic_po
@@ -94,8 +94,8 @@ No property perim found for device sky130_fd_pr__special_pfet_01v8_hvt
 No property topography found for device sky130_fd_pr__special_pfet_01v8_hvt
 No property value found for device sky130_fd_pr__diode_pw2nd_05v5
 No property mult found for device sky130_fd_pr__diode_pw2nd_05v5
-Comparison output logged to file /home/cah/r2d2/code/fpga/claude_project/ldpc_optical/chip_ignite/openlane/user_project_wrapper/runs/cf_wrapper_v5/63-netgen-lvs/reports/lvs.netgen.rpt
-Logging to file "/home/cah/r2d2/code/fpga/claude_project/ldpc_optical/chip_ignite/openlane/user_project_wrapper/runs/cf_wrapper_v5/63-netgen-lvs/reports/lvs.netgen.rpt" enabled
+Comparison output logged to file /home/cah/r2d2/code/fpga/claude_project/ldpc_optical/chip_ignite/openlane/user_project_wrapper/runs/cf_wrapper_v6/60-netgen-lvs/reports/lvs.netgen.rpt
+Logging to file "/home/cah/r2d2/code/fpga/claude_project/ldpc_optical/chip_ignite/openlane/user_project_wrapper/runs/cf_wrapper_v6/60-netgen-lvs/reports/lvs.netgen.rpt" enabled
 
 Contents of circuit 1:  Circuit: 'sky130_ef_sc_hd__decap_40_12'
 Circuit sky130_ef_sc_hd__decap_40_12 contains 0 device instances.
@@ -410,7 +410,7 @@ Circuit user_project_wrapper contains 591949 device instances.
   Class: sky130_fd_sc_hd__fill_4 instances: 72622
   Class: sky130_fd_sc_hd__fill_8 instances: 968
   Class: sky130_ef_sc_hd__decap_40_12 instances: 293644
-Circuit contains 116 nets, and 328 disconnected pins.
+Circuit contains 114 nets, and 330 disconnected pins.
 Contents of circuit 2:  Circuit: 'user_project_wrapper'
 Circuit user_project_wrapper contains 591949 device instances.
   Class: sky130_fd_sc_hd__inv_2 instances:   1
@@ -423,7 +423,7 @@ Circuit user_project_wrapper contains 591949 device instances.
   Class: sky130_fd_sc_hd__fill_4 instances: 72622
   Class: sky130_fd_sc_hd__fill_8 instances: 968
   Class: sky130_ef_sc_hd__decap_40_12 instances: 293644
-Circuit contains 116 nets, and 328 disconnected pins.
+Circuit contains 114 nets, and 330 disconnected pins.
 
 Circuit was modified by parallel/series device merging.
 New circuit summary:
@@ -440,7 +440,7 @@ Circuit user_project_wrapper contains 11 device instances.
   Class: sky130_fd_sc_hd__fill_4 instances:   1
   Class: sky130_fd_sc_hd__fill_8 instances:   1
   Class: sky130_ef_sc_hd__decap_40_12 instances:   1
-Circuit contains 116 nets, and 328 disconnected pins.
+Circuit contains 114 nets, and 330 disconnected pins.
 Contents of circuit 2:  Circuit: 'user_project_wrapper'
 Circuit user_project_wrapper contains 11 device instances.
   Class: sky130_fd_sc_hd__inv_2 instances:   1
@@ -453,10 +453,10 @@ Circuit user_project_wrapper contains 11 device instances.
   Class: sky130_fd_sc_hd__fill_4 instances:   1
   Class: sky130_fd_sc_hd__fill_8 instances:   1
   Class: sky130_ef_sc_hd__decap_40_12 instances:   1
-Circuit contains 116 nets, and 328 disconnected pins.
+Circuit contains 114 nets, and 330 disconnected pins.
 
 Circuit 1 contains 11 devices, Circuit 2 contains 11 devices.
-Circuit 1 contains 116 nets,    Circuit 2 contains 116 nets.
+Circuit 1 contains 114 nets,    Circuit 2 contains 114 nets.
 
 Pins io_oeb[36] and io_oeb[37] are shorted in cell user_project_wrapper (1)
 Pins io_oeb[35] and io_oeb[37] are shorted in cell user_project_wrapper (1)
@@ -666,5 +666,5 @@ Pins user_irq[1] and io_out[37] are shorted in cell user_project_wrapper (1)
 Final result: 
 Top level cell failed pin matching.
 
-Logging to file "/home/cah/r2d2/code/fpga/claude_project/ldpc_optical/chip_ignite/openlane/user_project_wrapper/runs/cf_wrapper_v5/63-netgen-lvs/reports/lvs.netgen.rpt" disabled
+Logging to file "/home/cah/r2d2/code/fpga/claude_project/ldpc_optical/chip_ignite/openlane/user_project_wrapper/runs/cf_wrapper_v6/60-netgen-lvs/reports/lvs.netgen.rpt" disabled
 LVS Done.

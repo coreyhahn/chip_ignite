@@ -1,0 +1,14 @@
+Subprocess had a non-zero exit.
+Last 10 line(s):
+/nix/store/jzpyz5b68vhp1l6wq64kgg6c8swgs920-klayout/lib/libklayout_gsi.so.0 +0x7849a _ZNK3gsi20VariantUserClassImpl11execute_gsiERKN2tl23ExpressionParserContextERNS1_7VariantES6_RKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERKSt6vectorIS5_SaIS5_EEPKSt3mapISC_S5_St4lessISC_ESaISt4pairISD_S5_EEE
+/nix/store/jzpyz5b68vhp1l6wq64kgg6c8swgs920-klayout/lib/libklayout_gsi.so.0 +0x7773c _ZNK3gsi20VariantUserClassImpl7executeERKN2tl23ExpressionParserContextERNS1_7VariantES6_RKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERKSt6vectorIS5_SaIS5_EEPKSt3mapISC_S5_St4lessISC_ESaISt4pairISD_S5_EEE
+/nix/store/jzpyz5b68vhp1l6wq64kgg6c8swgs920-klayout/lib/libklayout_tl.so.0 +0x7446e _ZNK2tl20MethodExpressionNode7executeERNS_10EvalTargetE
+/nix/store/jzpyz5b68vhp1l6wq64kgg6c8swgs920-klayout/lib/libklayout_tl.so.0 +0x76213 _ZNK2tl28StaticFunctionExpressionNode7executeERNS_10EvalTargetE
+/nix/store/jzpyz5b68vhp1l6wq64kgg6c8swgs920-klayout/lib/libklayout_tl.so.0 +0x5ed59 _ZNK2tl10Expression7executeEv
+/nix/store/jzpyz5b68vhp1l6wq64kgg6c8swgs920-klayout/lib/libklayout_db.so.0 +0xc788f4
+/nix/store/jzpyz5b68vhp1l6wq64kgg6c8swgs920-klayout/lib/libklayout_tl.so.0 +0xc231b _ZN2tl6Worker3runEv
+/nix/store/qpk85xnnx7w7fc8zkiq6mav3n4jiiffr-qtbase-5.15.12/lib/libQt5Core.so.5 +0xe386c
+/nix/store/k7zgvzp2r31zkg9xqgjim7mbknryv6bs-glibc-2.39-52/lib/libc.so.6 +0x8e272
+/nix/store/k7zgvzp2r31zkg9xqgjim7mbknryv6bs-glibc-2.39-52/lib/libc.so.6 +0x109dec
+
+Full log file: 'openlane/user_project_wrapper/runs/cf_wrapper_v6/55-klayout-xor/klayout-xor.log'

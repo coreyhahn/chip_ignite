@@ -1,8 +1,8 @@
 9 Lint warnings found.
-user_project_wrapper/runs/cf_wrapper_v5/06-yosys-synthesis/user_project_wrapper.nl.v:60: assign statement found in netlist
-user_project_wrapper/runs/cf_wrapper_v5/06-yosys-synthesis/user_project_wrapper.nl.v:61: assign statement found in netlist
-user_project_wrapper/runs/cf_wrapper_v5/06-yosys-synthesis/user_project_wrapper.nl.v:62: assign statement found in netlist
-user_project_wrapper/runs/cf_wrapper_v5/06-yosys-synthesis/user_project_wrapper.nl.v:63: assign statement found in netlist
+openlane/user_project_wrapper/runs/cf_wrapper_v6/06-yosys-synthesis/user_project_wrapper.nl.v:60: assign statement found in netlist
+openlane/user_project_wrapper/runs/cf_wrapper_v6/06-yosys-synthesis/user_project_wrapper.nl.v:61: assign statement found in netlist
+openlane/user_project_wrapper/runs/cf_wrapper_v6/06-yosys-synthesis/user_project_wrapper.nl.v:62: assign statement found in netlist
+openlane/user_project_wrapper/runs/cf_wrapper_v6/06-yosys-synthesis/user_project_wrapper.nl.v:63: assign statement found in netlist
 [STA-1140] /home/cah/r2d2/code/fpga/claude_project/ldpc_optical/chip_ignite/lib/ldpc_decoder_top.lib line 1, library ldpc_decoder_top already exists.
 Cell 'ldpc_decoder_top' has (30) input pin(s) without antenna gate information. They might not be connected to a gate.
 [STA-1140] /home/cah/r2d2/code/fpga/claude_project/ldpc_optical/chip_ignite/lib/ldpc_decoder_top.lib line 1, library ldpc_decoder_top already exists.
@@ -1705,9 +1705,6 @@ Bterm vccd1 is declared as a 'POWER' pin. It will be ignored.
 [STA-1140] /home/cah/r2d2/code/fpga/claude_project/ldpc_optical/chip_ignite/lib/ldpc_decoder_top.lib line 1, library ldpc_decoder_top already exists.
 Threshold for Threshold-surpassing long wires is not set. The checker will be skipped.
 [STA-1140] /home/cah/r2d2/code/fpga/claude_project/ldpc_optical/chip_ignite/lib/ldpc_decoder_top.lib line 1, library ldpc_decoder_top already exists.
-Cell 'user_project_wrapper' has (29) inout pin(s) without anetnna gate information not antenna diffusion information. They might be disconnected.
-Cell 'user_project_wrapper' has (325) input pin(s) without antenna gate information. They might not be connected to a gate.
-Cell 'user_project_wrapper' has (206) output pin(s) without antenna diffusion information. They might not be driven.
 208 LVS errors found.
 Setup violations found in the following corners:
 * max_ss_100C_1v60
@@ -1743,3 +1740,4 @@ Max Cap violations found in the following corners:
 * nom_ff_n40C_1v95
 * nom_ss_100C_1v60
 * nom_tt_025C_1v80
+klayout__drc_error__count not reported. KLayout.DRC may have been skipped.

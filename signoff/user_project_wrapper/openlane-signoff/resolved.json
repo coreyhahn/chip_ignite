@@ -200,7 +200,7 @@
     "EXTRA_SPICE_MODELS": null,
     "EXTRA_LIBS": null,
     "EXTRA_GDS_FILES": null,
-    "FALLBACK_SDC_FILE": "/nix/store/wn1fdnkvfs0r3b197kgsf2fwavmsn82c-python3.11-librelane-2.4.6/lib/python3.11/site-packages/librelane/scripts/base.sdc",
+    "FALLBACK_SDC_FILE": "/nix/store/iah2c26wzpgdvqc1jv2xxg55xq5km74d-python3-3.11.9-env/lib/python3.11/site-packages/librelane/scripts/base.sdc",
     "RUN_TAP_ENDCAP_INSERTION": true,
     "RUN_POST_GPL_DESIGN_REPAIR": false,
     "RUN_POST_GRT_DESIGN_REPAIR": false,
@@ -278,7 +278,7 @@
     "SIGNOFF_SDC_FILE": "/home/cah/r2d2/code/fpga/claude_project/ldpc_optical/chip_ignite/openlane/user_project_wrapper/signoff.sdc",
     "PDN_CONNECT_MACROS_TO_GRID": true,
     "PDN_MACRO_CONNECTIONS": [
-        "mprj vccd2 vssd2 vccd1 vssd1"
+        "mprj vccd1 vssd1 vccd2 vssd2"
     ],
     "PDN_ENABLE_GLOBAL_CONNECTIONS": true,
     "FP_DEF_TEMPLATE": "/home/cah/r2d2/code/fpga/claude_project/ldpc_optical/chip_ignite/openlane/user_project_wrapper/fixed_dont_change/user_project_wrapper.def",
