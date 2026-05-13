@@ -27,7 +27,8 @@ The same root cause produces the additional report of `vssd2 in netlist only` (P
    The mismatched pins all belong to nets that, after Magic's extraction, are the same global power/ground nets in both netlists. The connectivity is correct.
 2. **Magic DRC: 0 violations.** GDS layout is manufacturable.
 3. **Gate-level simulation passes.** All 5 cocotb tests on the Caravel-integrated gate-level netlist (`cf verify <test> --sim gl`) return `GPIO[7:0] = 0xAB` (the firmware's success code):
-   - `ldpc_basic`, `ldpc_noisy`, `ldpc_max_iter`, `ldpc_back_to_back`, `ldpc_demo` — all PASS
+   - `ldpc_basic`, `ldpc_noisy`, `ldpc_max_iter`, `ldpc_back_to_back`, `ldpc_demo` — all PASS (originally verified May 1, 2026 on `cf_wrapper_v5`)
+   - **Re-verified May 13, 2026 on HEAD (`8cc8414`, the PDN-fix wrapper)**: `ldpc_basic` PASSED at `854225.00ns`, GPIO[7:0]=`0xAB`, 0 criticals / 0 errors / 0 warnings, 34169 cycles consumed (of 37586 recommended timeout), 2h 19min wall-clock. The PDN swap between `cf_wrapper_v5` and HEAD only changes which physical rails connect to `mprj` (`vccd1/vssd1` instead of `vccd2/vssd2`); both rails sit at 1.8 V in simulation, so the other 4 tests' May 1 results apply unchanged to HEAD.
 4. **`mpw_precheck`: 17 of 19 checks PASS** (`cf precheck` on `cf_wrapper_v5`, May 1, 2026). The two failures are:
    - **KLayout FEOL**: a `SIGSEGV` (signal 11) crash inside the KLayout DRC tool, not a real DRC violation.
    - **LVS**: the cosmetic pin-match issue described in this waiver.
