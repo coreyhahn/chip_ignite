@@ -1,0 +1,1444 @@
+{
+  "tie_la_data_out_0": {
+    "location": [
+      633.88,
+      10.88
+    ],
+    "orientation": "N"
+  },
+  "tie_la_data_out_1": {
+    "location": [
+      651.36,
+      10.88
+    ],
+    "orientation": "N"
+  },
+  "tie_la_data_out_2": {
+    "location": [
+      669.3,
+      10.88
+    ],
+    "orientation": "N"
+  },
+  "tie_la_data_out_3": {
+    "location": [
+      687.24,
+      10.88
+    ],
+    "orientation": "N"
+  },
+  "tie_la_data_out_4": {
+    "location": [
+      704.72,
+      10.88
+    ],
+    "orientation": "N"
+  },
+  "tie_la_data_out_5": {
+    "location": [
+      722.2,
+      10.88
+    ],
+    "orientation": "N"
+  },
+  "tie_la_data_out_6": {
+    "location": [
+      740.6,
+      10.88
+    ],
+    "orientation": "N"
+  },
+  "tie_la_data_out_7": {
+    "location": [
+      758.08,
+      10.88
+    ],
+    "orientation": "N"
+  },
+  "tie_la_data_out_8": {
+    "location": [
+      775.56,
+      10.88
+    ],
+    "orientation": "N"
+  },
+  "tie_la_data_out_9": {
+    "location": [
+      793.04,
+      10.88
+    ],
+    "orientation": "N"
+  },
+  "tie_la_data_out_10": {
+    "location": [
+      811.44,
+      10.88
+    ],
+    "orientation": "N"
+  },
+  "tie_la_data_out_11": {
+    "location": [
+      828.92,
+      10.88
+    ],
+    "orientation": "N"
+  },
+  "tie_la_data_out_12": {
+    "location": [
+      846.4,
+      10.88
+    ],
+    "orientation": "N"
+  },
+  "tie_la_data_out_13": {
+    "location": [
+      864.8,
+      10.88
+    ],
+    "orientation": "N"
+  },
+  "tie_la_data_out_14": {
+    "location": [
+      881.82,
+      10.88
+    ],
+    "orientation": "N"
+  },
+  "tie_la_data_out_15": {
+    "location": [
+      899.76,
+      10.88
+    ],
+    "orientation": "N"
+  },
+  "tie_la_data_out_16": {
+    "location": [
+      917.24,
+      10.88
+    ],
+    "orientation": "N"
+  },
+  "tie_la_data_out_17": {
+    "location": [
+      935.18,
+      10.88
+    ],
+    "orientation": "N"
+  },
+  "tie_la_data_out_18": {
+    "location": [
+      953.12,
+      10.88
+    ],
+    "orientation": "N"
+  },
+  "tie_la_data_out_19": {
+    "location": [
+      970.6,
+      10.88
+    ],
+    "orientation": "N"
+  },
+  "tie_la_data_out_20": {
+    "location": [
+      988.08,
+      10.88
+    ],
+    "orientation": "N"
+  },
+  "tie_la_data_out_21": {
+    "location": [
+      1006.48,
+      10.88
+    ],
+    "orientation": "N"
+  },
+  "tie_la_data_out_22": {
+    "location": [
+      1023.96,
+      10.88
+    ],
+    "orientation": "N"
+  },
+  "tie_la_data_out_23": {
+    "location": [
+      1041.44,
+      10.88
+    ],
+    "orientation": "N"
+  },
+  "tie_la_data_out_24": {
+    "location": [
+      1059.38,
+      10.88
+    ],
+    "orientation": "N"
+  },
+  "tie_la_data_out_25": {
+    "location": [
+      1076.86,
+      10.88
+    ],
+    "orientation": "N"
+  },
+  "tie_la_data_out_26": {
+    "location": [
+      1094.8,
+      10.88
+    ],
+    "orientation": "N"
+  },
+  "tie_la_data_out_27": {
+    "location": [
+      1112.28,
+      10.88
+    ],
+    "orientation": "N"
+  },
+  "tie_la_data_out_28": {
+    "location": [
+      1130.22,
+      10.88
+    ],
+    "orientation": "N"
+  },
+  "tie_la_data_out_29": {
+    "location": [
+      1147.7,
+      10.88
+    ],
+    "orientation": "N"
+  },
+  "tie_la_data_out_30": {
+    "location": [
+      1165.64,
+      10.88
+    ],
+    "orientation": "N"
+  },
+  "tie_la_data_out_31": {
+    "location": [
+      1183.58,
+      10.88
+    ],
+    "orientation": "N"
+  },
+  "tie_la_data_out_32": {
+    "location": [
+      1201.52,
+      10.88
+    ],
+    "orientation": "N"
+  },
+  "tie_la_data_out_33": {
+    "location": [
+      1219.0,
+      10.88
+    ],
+    "orientation": "N"
+  },
+  "tie_la_data_out_34": {
+    "location": [
+      1236.48,
+      10.88
+    ],
+    "orientation": "N"
+  },
+  "tie_la_data_out_35": {
+    "location": [
+      1254.42,
+      10.88
+    ],
+    "orientation": "N"
+  },
+  "tie_la_data_out_36": {
+    "location": [
+      1271.9,
+      10.88
+    ],
+    "orientation": "N"
+  },
+  "tie_la_data_out_37": {
+    "location": [
+      1289.84,
+      10.88
+    ],
+    "orientation": "N"
+  },
+  "tie_la_data_out_38": {
+    "location": [
+      1307.32,
+      10.88
+    ],
+    "orientation": "N"
+  },
+  "tie_la_data_out_39": {
+    "location": [
+      1325.26,
+      10.88
+    ],
+    "orientation": "N"
+  },
+  "tie_la_data_out_40": {
+    "location": [
+      1342.74,
+      10.88
+    ],
+    "orientation": "N"
+  },
+  "tie_la_data_out_41": {
+    "location": [
+      1360.68,
+      10.88
+    ],
+    "orientation": "N"
+  },
+  "tie_la_data_out_42": {
+    "location": [
+      1378.62,
+      10.88
+    ],
+    "orientation": "N"
+  },
+  "tie_la_data_out_43": {
+    "location": [
+      1396.1,
+      10.88
+    ],
+    "orientation": "N"
+  },
+  "tie_la_data_out_44": {
+    "location": [
+      1414.04,
+      10.88
+    ],
+    "orientation": "N"
+  },
+  "tie_la_data_out_45": {
+    "location": [
+      1431.52,
+      10.88
+    ],
+    "orientation": "N"
+  },
+  "tie_la_data_out_46": {
+    "location": [
+      1449.46,
+      10.88
+    ],
+    "orientation": "N"
+  },
+  "tie_la_data_out_47": {
+    "location": [
+      1466.94,
+      10.88
+    ],
+    "orientation": "N"
+  },
+  "tie_la_data_out_48": {
+    "location": [
+      1484.88,
+      10.88
+    ],
+    "orientation": "N"
+  },
+  "tie_la_data_out_49": {
+    "location": [
+      1502.36,
+      10.88
+    ],
+    "orientation": "N"
+  },
+  "tie_la_data_out_50": {
+    "location": [
+      1520.76,
+      10.88
+    ],
+    "orientation": "N"
+  },
+  "tie_la_data_out_51": {
+    "location": [
+      1538.24,
+      10.88
+    ],
+    "orientation": "N"
+  },
+  "tie_la_data_out_52": {
+    "location": [
+      1555.72,
+      10.88
+    ],
+    "orientation": "N"
+  },
+  "tie_la_data_out_53": {
+    "location": [
+      1573.66,
+      10.88
+    ],
+    "orientation": "N"
+  },
+  "tie_la_data_out_54": {
+    "location": [
+      1591.14,
+      10.88
+    ],
+    "orientation": "N"
+  },
+  "tie_la_data_out_55": {
+    "location": [
+      1609.08,
+      10.88
+    ],
+    "orientation": "N"
+  },
+  "tie_la_data_out_56": {
+    "location": [
+      1626.56,
+      10.88
+    ],
+    "orientation": "N"
+  },
+  "tie_la_data_out_57": {
+    "location": [
+      1644.5,
+      10.88
+    ],
+    "orientation": "N"
+  },
+  "tie_la_data_out_58": {
+    "location": [
+      1661.98,
+      10.88
+    ],
+    "orientation": "N"
+  },
+  "tie_la_data_out_59": {
+    "location": [
+      1679.92,
+      10.88
+    ],
+    "orientation": "N"
+  },
+  "tie_la_data_out_60": {
+    "location": [
+      1697.86,
+      10.88
+    ],
+    "orientation": "N"
+  },
+  "tie_la_data_out_61": {
+    "location": [
+      1715.34,
+      10.88
+    ],
+    "orientation": "N"
+  },
+  "tie_la_data_out_62": {
+    "location": [
+      1733.28,
+      10.88
+    ],
+    "orientation": "N"
+  },
+  "tie_la_data_out_63": {
+    "location": [
+      1750.76,
+      10.88
+    ],
+    "orientation": "N"
+  },
+  "tie_la_data_out_64": {
+    "location": [
+      1768.7,
+      10.88
+    ],
+    "orientation": "N"
+  },
+  "tie_la_data_out_65": {
+    "location": [
+      1786.18,
+      10.88
+    ],
+    "orientation": "N"
+  },
+  "tie_la_data_out_66": {
+    "location": [
+      1804.12,
+      10.88
+    ],
+    "orientation": "N"
+  },
+  "tie_la_data_out_67": {
+    "location": [
+      1821.6,
+      10.88
+    ],
+    "orientation": "N"
+  },
+  "tie_la_data_out_68": {
+    "location": [
+      1840.0,
+      10.88
+    ],
+    "orientation": "N"
+  },
+  "tie_la_data_out_69": {
+    "location": [
+      1857.48,
+      10.88
+    ],
+    "orientation": "N"
+  },
+  "tie_la_data_out_70": {
+    "location": [
+      1874.96,
+      10.88
+    ],
+    "orientation": "N"
+  },
+  "tie_la_data_out_71": {
+    "location": [
+      1893.36,
+      10.88
+    ],
+    "orientation": "N"
+  },
+  "tie_la_data_out_72": {
+    "location": [
+      1910.84,
+      10.88
+    ],
+    "orientation": "N"
+  },
+  "tie_la_data_out_73": {
+    "location": [
+      1928.32,
+      10.88
+    ],
+    "orientation": "N"
+  },
+  "tie_la_data_out_74": {
+    "location": [
+      1945.8,
+      10.88
+    ],
+    "orientation": "N"
+  },
+  "tie_la_data_out_75": {
+    "location": [
+      1963.74,
+      10.88
+    ],
+    "orientation": "N"
+  },
+  "tie_la_data_out_76": {
+    "location": [
+      1981.22,
+      10.88
+    ],
+    "orientation": "N"
+  },
+  "tie_la_data_out_77": {
+    "location": [
+      1999.16,
+      10.88
+    ],
+    "orientation": "N"
+  },
+  "tie_la_data_out_78": {
+    "location": [
+      2016.64,
+      10.88
+    ],
+    "orientation": "N"
+  },
+  "tie_la_data_out_79": {
+    "location": [
+      2035.04,
+      10.88
+    ],
+    "orientation": "N"
+  },
+  "tie_la_data_out_80": {
+    "location": [
+      2052.52,
+      10.88
+    ],
+    "orientation": "N"
+  },
+  "tie_la_data_out_81": {
+    "location": [
+      2070.0,
+      10.88
+    ],
+    "orientation": "N"
+  },
+  "tie_la_data_out_82": {
+    "location": [
+      2088.4,
+      10.88
+    ],
+    "orientation": "N"
+  },
+  "tie_la_data_out_83": {
+    "location": [
+      2105.88,
+      10.88
+    ],
+    "orientation": "N"
+  },
+  "tie_la_data_out_84": {
+    "location": [
+      2123.36,
+      10.88
+    ],
+    "orientation": "N"
+  },
+  "tie_la_data_out_85": {
+    "location": [
+      2140.84,
+      10.88
+    ],
+    "orientation": "N"
+  },
+  "tie_la_data_out_86": {
+    "location": [
+      2158.78,
+      10.88
+    ],
+    "orientation": "N"
+  },
+  "tie_la_data_out_87": {
+    "location": [
+      2176.26,
+      10.88
+    ],
+    "orientation": "N"
+  },
+  "tie_la_data_out_88": {
+    "location": [
+      2194.2,
+      10.88
+    ],
+    "orientation": "N"
+  },
+  "tie_la_data_out_89": {
+    "location": [
+      2211.68,
+      10.88
+    ],
+    "orientation": "N"
+  },
+  "tie_la_data_out_90": {
+    "location": [
+      2230.08,
+      10.88
+    ],
+    "orientation": "N"
+  },
+  "tie_la_data_out_91": {
+    "location": [
+      2247.56,
+      10.88
+    ],
+    "orientation": "N"
+  },
+  "tie_la_data_out_92": {
+    "location": [
+      2265.04,
+      10.88
+    ],
+    "orientation": "N"
+  },
+  "tie_la_data_out_93": {
+    "location": [
+      2283.44,
+      10.88
+    ],
+    "orientation": "N"
+  },
+  "tie_la_data_out_94": {
+    "location": [
+      2300.92,
+      10.88
+    ],
+    "orientation": "N"
+  },
+  "tie_la_data_out_95": {
+    "location": [
+      2318.4,
+      10.88
+    ],
+    "orientation": "N"
+  },
+  "tie_la_data_out_96": {
+    "location": [
+      2335.88,
+      10.88
+    ],
+    "orientation": "N"
+  },
+  "tie_la_data_out_97": {
+    "location": [
+      2353.82,
+      10.88
+    ],
+    "orientation": "N"
+  },
+  "tie_la_data_out_98": {
+    "location": [
+      2371.3,
+      10.88
+    ],
+    "orientation": "N"
+  },
+  "tie_la_data_out_99": {
+    "location": [
+      2389.24,
+      10.88
+    ],
+    "orientation": "N"
+  },
+  "tie_la_data_out_100": {
+    "location": [
+      2407.18,
+      10.88
+    ],
+    "orientation": "N"
+  },
+  "tie_la_data_out_101": {
+    "location": [
+      2424.66,
+      10.88
+    ],
+    "orientation": "N"
+  },
+  "tie_la_data_out_102": {
+    "location": [
+      2442.6,
+      10.88
+    ],
+    "orientation": "N"
+  },
+  "tie_la_data_out_103": {
+    "location": [
+      2460.08,
+      10.88
+    ],
+    "orientation": "N"
+  },
+  "tie_la_data_out_104": {
+    "location": [
+      2478.48,
+      10.88
+    ],
+    "orientation": "N"
+  },
+  "tie_la_data_out_105": {
+    "location": [
+      2495.96,
+      10.88
+    ],
+    "orientation": "N"
+  },
+  "tie_la_data_out_106": {
+    "location": [
+      2513.44,
+      10.88
+    ],
+    "orientation": "N"
+  },
+  "tie_la_data_out_107": {
+    "location": [
+      2530.92,
+      10.88
+    ],
+    "orientation": "N"
+  },
+  "tie_la_data_out_108": {
+    "location": [
+      2548.86,
+      10.88
+    ],
+    "orientation": "N"
+  },
+  "tie_la_data_out_109": {
+    "location": [
+      2566.34,
+      10.88
+    ],
+    "orientation": "N"
+  },
+  "tie_la_data_out_110": {
+    "location": [
+      2584.28,
+      10.88
+    ],
+    "orientation": "N"
+  },
+  "tie_la_data_out_111": {
+    "location": [
+      2602.22,
+      10.88
+    ],
+    "orientation": "N"
+  },
+  "tie_la_data_out_112": {
+    "location": [
+      2619.7,
+      10.88
+    ],
+    "orientation": "N"
+  },
+  "tie_la_data_out_113": {
+    "location": [
+      2637.64,
+      10.88
+    ],
+    "orientation": "N"
+  },
+  "tie_la_data_out_114": {
+    "location": [
+      2655.12,
+      10.88
+    ],
+    "orientation": "N"
+  },
+  "tie_la_data_out_115": {
+    "location": [
+      2673.52,
+      10.88
+    ],
+    "orientation": "N"
+  },
+  "tie_la_data_out_116": {
+    "location": [
+      2691.0,
+      10.88
+    ],
+    "orientation": "N"
+  },
+  "tie_la_data_out_117": {
+    "location": [
+      2708.48,
+      10.88
+    ],
+    "orientation": "N"
+  },
+  "tie_la_data_out_118": {
+    "location": [
+      2725.96,
+      10.88
+    ],
+    "orientation": "N"
+  },
+  "tie_la_data_out_119": {
+    "location": [
+      2744.36,
+      10.88
+    ],
+    "orientation": "N"
+  },
+  "tie_la_data_out_120": {
+    "location": [
+      2761.84,
+      10.88
+    ],
+    "orientation": "N"
+  },
+  "tie_la_data_out_121": {
+    "location": [
+      2779.32,
+      10.88
+    ],
+    "orientation": "N"
+  },
+  "tie_la_data_out_122": {
+    "location": [
+      2797.26,
+      10.88
+    ],
+    "orientation": "N"
+  },
+  "tie_la_data_out_123": {
+    "location": [
+      2814.74,
+      10.88
+    ],
+    "orientation": "N"
+  },
+  "tie_la_data_out_124": {
+    "location": [
+      2832.68,
+      10.88
+    ],
+    "orientation": "N"
+  },
+  "tie_la_data_out_125": {
+    "location": [
+      2850.16,
+      10.88
+    ],
+    "orientation": "N"
+  },
+  "tie_la_data_out_126": {
+    "location": [
+      2868.56,
+      10.88
+    ],
+    "orientation": "N"
+  },
+  "tie_la_data_out_127": {
+    "location": [
+      2886.04,
+      10.88
+    ],
+    "orientation": "N"
+  },
+  "tie_user_irq_1": {
+    "location": [
+      2909.96,
+      10.88
+    ],
+    "orientation": "N"
+  },
+  "tie_io_oeb_23": {
+    "location": [
+      39.1,
+      1778.88
+    ],
+    "orientation": "N"
+  },
+  "tie_io_out_23": {
+    "location": [
+      120.52,
+      1778.88
+    ],
+    "orientation": "N"
+  },
+  "tie_io_oeb_22": {
+    "location": [
+      363.4,
+      1778.88
+    ],
+    "orientation": "N"
+  },
+  "tie_io_out_22": {
+    "location": [
+      444.36,
+      1778.88
+    ],
+    "orientation": "N"
+  },
+  "tie_io_oeb_21": {
+    "location": [
+      687.7,
+      1778.88
+    ],
+    "orientation": "N"
+  },
+  "tie_io_out_21": {
+    "location": [
+      769.12,
+      1778.88
+    ],
+    "orientation": "N"
+  },
+  "tie_io_oeb_20": {
+    "location": [
+      1012.92,
+      1778.88
+    ],
+    "orientation": "N"
+  },
+  "tie_io_out_20": {
+    "location": [
+      1093.42,
+      1778.88
+    ],
+    "orientation": "N"
+  },
+  "tie_io_oeb_19": {
+    "location": [
+      1336.76,
+      1778.88
+    ],
+    "orientation": "N"
+  },
+  "tie_io_out_19": {
+    "location": [
+      1417.72,
+      1778.88
+    ],
+    "orientation": "N"
+  },
+  "tie_io_oeb_18": {
+    "location": [
+      1661.06,
+      1778.88
+    ],
+    "orientation": "N"
+  },
+  "tie_io_out_18": {
+    "location": [
+      1742.48,
+      1778.88
+    ],
+    "orientation": "N"
+  },
+  "tie_io_oeb_17": {
+    "location": [
+      1986.28,
+      1778.88
+    ],
+    "orientation": "N"
+  },
+  "tie_io_out_17": {
+    "location": [
+      2066.78,
+      1778.88
+    ],
+    "orientation": "N"
+  },
+  "tie_io_oeb_16": {
+    "location": [
+      2310.12,
+      1778.88
+    ],
+    "orientation": "N"
+  },
+  "tie_io_out_16": {
+    "location": [
+      2391.08,
+      1778.88
+    ],
+    "orientation": "N"
+  },
+  "tie_io_oeb_15": {
+    "location": [
+      2634.88,
+      1778.88
+    ],
+    "orientation": "N"
+  },
+  "tie_io_out_15": {
+    "location": [
+      2715.84,
+      1778.88
+    ],
+    "orientation": "N"
+  },
+  "tie_user_irq_2": {
+    "location": [
+      2861.2,
+      10.88
+    ],
+    "orientation": "N"
+  },
+  "tie_io_out_0": {
+    "location": [
+      2861.2,
+      97.92
+    ],
+    "orientation": "N"
+  },
+  "tie_io_oeb_0": {
+    "location": [
+      2861.2,
+      165.92
+    ],
+    "orientation": "N"
+  },
+  "tie_io_out_1": {
+    "location": [
+      2861.2,
+      299.2
+    ],
+    "orientation": "N"
+  },
+  "tie_io_oeb_1": {
+    "location": [
+      2861.2,
+      364.48
+    ],
+    "orientation": "N"
+  },
+  "tie_io_out_2": {
+    "location": [
+      2861.2,
+      497.76
+    ],
+    "orientation": "N"
+  },
+  "tie_io_oeb_2": {
+    "location": [
+      2861.2,
+      563.04
+    ],
+    "orientation": "N"
+  },
+  "tie_io_out_3": {
+    "location": [
+      2861.2,
+      696.32
+    ],
+    "orientation": "N"
+  },
+  "tie_io_oeb_3": {
+    "location": [
+      2861.2,
+      764.32
+    ],
+    "orientation": "N"
+  },
+  "tie_io_out_4": {
+    "location": [
+      2861.2,
+      894.88
+    ],
+    "orientation": "N"
+  },
+  "tie_io_oeb_4": {
+    "location": [
+      2861.2,
+      962.88
+    ],
+    "orientation": "N"
+  },
+  "tie_io_out_5": {
+    "location": [
+      2861.2,
+      1096.16
+    ],
+    "orientation": "N"
+  },
+  "tie_io_oeb_5": {
+    "location": [
+      2861.2,
+      1161.44
+    ],
+    "orientation": "N"
+  },
+  "tie_io_out_6": {
+    "location": [
+      2861.2,
+      1294.72
+    ],
+    "orientation": "N"
+  },
+  "tie_io_oeb_6": {
+    "location": [
+      2861.2,
+      1360.0
+    ],
+    "orientation": "N"
+  },
+  "tie_io_out_7": {
+    "location": [
+      2861.2,
+      1561.28
+    ],
+    "orientation": "N"
+  },
+  "tie_io_oeb_7": {
+    "location": [
+      2861.2,
+      1626.56
+    ],
+    "orientation": "N"
+  },
+  "tie_io_out_8": {
+    "location": [
+      2861.2,
+      1825.12
+    ],
+    "orientation": "N"
+  },
+  "tie_io_oeb_8": {
+    "location": [
+      2861.2,
+      1893.12
+    ],
+    "orientation": "N"
+  },
+  "tie_io_out_9": {
+    "location": [
+      2861.2,
+      2091.68
+    ],
+    "orientation": "N"
+  },
+  "tie_io_oeb_9": {
+    "location": [
+      2861.2,
+      2156.96
+    ],
+    "orientation": "N"
+  },
+  "tie_io_out_10": {
+    "location": [
+      2861.2,
+      2358.24
+    ],
+    "orientation": "N"
+  },
+  "tie_io_oeb_10": {
+    "location": [
+      2861.2,
+      2423.52
+    ],
+    "orientation": "N"
+  },
+  "tie_io_out_11": {
+    "location": [
+      2861.2,
+      2622.08
+    ],
+    "orientation": "N"
+  },
+  "tie_io_oeb_11": {
+    "location": [
+      2861.2,
+      2690.08
+    ],
+    "orientation": "N"
+  },
+  "tie_io_out_12": {
+    "location": [
+      2861.2,
+      2888.64
+    ],
+    "orientation": "N"
+  },
+  "tie_io_oeb_12": {
+    "location": [
+      2861.2,
+      2953.92
+    ],
+    "orientation": "N"
+  },
+  "tie_io_out_13": {
+    "location": [
+      2861.2,
+      3155.2
+    ],
+    "orientation": "N"
+  },
+  "tie_io_oeb_13": {
+    "location": [
+      2861.2,
+      3220.48
+    ],
+    "orientation": "N"
+  },
+  "tie_io_out_14": {
+    "location": [
+      2861.2,
+      3419.04
+    ],
+    "orientation": "N"
+  },
+  "tie_io_oeb_14": {
+    "location": [
+      2861.2,
+      3487.04
+    ],
+    "orientation": "N"
+  },
+  "tie_io_oeb_37": {
+    "location": [
+      1.84,
+      32.64
+    ],
+    "orientation": "N"
+  },
+  "tie_io_out_37": {
+    "location": [
+      1.84,
+      97.92
+    ],
+    "orientation": "N"
+  },
+  "tie_io_oeb_36": {
+    "location": [
+      1.84,
+      228.48
+    ],
+    "orientation": "N"
+  },
+  "tie_io_out_36": {
+    "location": [
+      1.84,
+      293.76
+    ],
+    "orientation": "N"
+  },
+  "tie_io_oeb_35": {
+    "location": [
+      1.84,
+      424.32
+    ],
+    "orientation": "N"
+  },
+  "tie_io_out_35": {
+    "location": [
+      1.84,
+      486.88
+    ],
+    "orientation": "N"
+  },
+  "tie_io_oeb_34": {
+    "location": [
+      1.84,
+      682.72
+    ],
+    "orientation": "N"
+  },
+  "tie_io_out_34": {
+    "location": [
+      1.84,
+      748.0
+    ],
+    "orientation": "N"
+  },
+  "tie_io_oeb_33": {
+    "location": [
+      1.84,
+      943.84
+    ],
+    "orientation": "N"
+  },
+  "tie_io_out_33": {
+    "location": [
+      1.84,
+      1009.12
+    ],
+    "orientation": "N"
+  },
+  "tie_io_oeb_32": {
+    "location": [
+      1.84,
+      1204.96
+    ],
+    "orientation": "N"
+  },
+  "tie_io_out_32": {
+    "location": [
+      1.84,
+      1270.24
+    ],
+    "orientation": "N"
+  },
+  "tie_io_oeb_31": {
+    "location": [
+      1.84,
+      1466.08
+    ],
+    "orientation": "N"
+  },
+  "tie_io_out_31": {
+    "location": [
+      1.84,
+      1531.36
+    ],
+    "orientation": "N"
+  },
+  "tie_io_oeb_30": {
+    "location": [
+      1.84,
+      1727.2
+    ],
+    "orientation": "N"
+  },
+  "tie_io_out_30": {
+    "location": [
+      1.84,
+      1792.48
+    ],
+    "orientation": "N"
+  },
+  "tie_io_oeb_29": {
+    "location": [
+      1.84,
+      1988.32
+    ],
+    "orientation": "N"
+  },
+  "tie_io_out_29": {
+    "location": [
+      1.84,
+      2053.6
+    ],
+    "orientation": "N"
+  },
+  "tie_io_oeb_28": {
+    "location": [
+      1.84,
+      2246.72
+    ],
+    "orientation": "N"
+  },
+  "tie_io_out_28": {
+    "location": [
+      1.84,
+      2312.0
+    ],
+    "orientation": "N"
+  },
+  "tie_io_oeb_27": {
+    "location": [
+      1.84,
+      2507.84
+    ],
+    "orientation": "N"
+  },
+  "tie_io_out_27": {
+    "location": [
+      1.84,
+      2573.12
+    ],
+    "orientation": "N"
+  },
+  "tie_io_oeb_26": {
+    "location": [
+      1.84,
+      2768.96
+    ],
+    "orientation": "N"
+  },
+  "tie_io_out_26": {
+    "location": [
+      1.84,
+      2834.24
+    ],
+    "orientation": "N"
+  },
+  "tie_io_oeb_25": {
+    "location": [
+      1.84,
+      3030.08
+    ],
+    "orientation": "N"
+  },
+  "tie_io_out_25": {
+    "location": [
+      1.84,
+      3095.36
+    ],
+    "orientation": "N"
+  },
+  "tie_io_oeb_24": {
+    "location": [
+      1.84,
+      3291.2
+    ],
+    "orientation": "N"
+  },
+  "tie_io_out_24": {
+    "location": [
+      1.84,
+      3356.48
+    ],
+    "orientation": "N"
+  }
+}

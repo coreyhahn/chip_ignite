@@ -346,7 +346,7 @@ Shuttle compliance precheck: **17/19 PASS**.
 
 Both failures are non-functional:
 - **KLayout FEOL**: Tool crashed with signal 11 (SIGSEGV) during DRC -- this is a KLayout bug, not a design violation. BEOL, Offgrid, Metal Density, Pin Labels, and ZeroArea all pass.
-- **LVS**: "Top level cell failed pin matching" -- 3 cosmetic mismatches where Magic SPICE extraction merged constant-tied output pins (`io_oeb`, `user_irq`) into shared nets, losing individual pin labels. CVC: 0 errors. Device classes: equivalent.
+- **LVS**: "Top level cell failed pin matching" -- cosmetic mismatches where Magic SPICE extraction merged constant-tied output pins (`la_data_out`, `io_out`, `io_oeb`, `user_irq`) into shared global power/ground nets, losing individual pin labels. CVC: 0 errors. Device classes: equivalent. **See [`docs/LVS_WAIVER.md`](docs/LVS_WAIVER.md)** for the full waiver, including the May 2026 disproof that per-pin tieoff cells cannot fix this Magic-extraction artifact.
 
 ## Demo Strategy
 

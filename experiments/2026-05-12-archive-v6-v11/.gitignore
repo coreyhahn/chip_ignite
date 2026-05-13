@@ -1,0 +1,8 @@
+# Binary debris from failed v6-v11 wrapper hardening experiments.
+# The text files (manual_tieoffs.vh, manual_placements.json, README.md)
+# in this directory capture all the lessons. The binaries below are
+# regenerable by re-running `cf harden user_project_wrapper` with the
+# v8 config and have no future analytical value, so they are not tracked.
+mag/
+spef_multicorner/
+user_project_wrapper.gds
